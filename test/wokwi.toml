@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/Release/test.elf'
+elf = 'build/Release/test.elf'
