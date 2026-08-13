@@ -16,5 +16,5 @@
         [ "nucleo:GND.1","btn1:2.l", "green", [ "v0" ] ]
     ],
     "dependencies": {},
-    "elf": "build/Release/test.elf"
+    "elf": "build/Debug/test.elf"
 }

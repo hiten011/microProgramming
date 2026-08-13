@@ -1,0 +1,16 @@
+{
+"version" : "0.2.0",
+"configurations" :
+    [
+    {
+        "name" : "Wokwi Debug", 
+        "type" : "cppdbg",
+        "request" : "launch",
+        "program" : "/home/hiten/dev/UNI/microPrograming/test/build/Debug/test.elf",
+        "cwd" : "/home/hiten/dev/UNI/microPrograming/test" ,
+        "MIMode" : "gdb" ,
+        "miDebuggerPath": "/home/hiten/dev/UNI/microPrograming/test/arm-none-eabi-gdb",
+        "miDebuggerServerAddress": "localhost:3333"
+    }
+    ]
+}

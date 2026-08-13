@@ -17,11 +17,41 @@
  */
 
 #include <stdint.h>
+#include <sys/types.h>
+
+ushort sqrtInt(uint x) 
+{
+    uint a = 0, b = 65535;
+    uint m_prev = 0, m = (a / 2) + (b / 2);
+    
+    while (m != m_prev && a <= b && (m * m) != x) {
+        if (m * m < x) {
+            a = m;
+        } else {
+            b = m;
+        }
+
+        m_prev = m; m = (a / 2) + (b / 2);
+    }
+
+    return (ushort)m;
+}
+
+ushort isPrime(uint x) 
+{
+    for (uint i = 2; i <= sqrtInt(x); i++) if (!(x % i)) return 0;
+    return (x < 2 ? 0 : 1);
+}
 
 int main(void)
 {
-    /* Loop forever */
-	for(;;) {
-        Serial.println("Helo World!!");
+    while (1) {
+        ushort test_sqrt = sqrtInt(25);
+        test_sqrt = sqrtInt(133);
+        test_sqrt = isPrime(25);
+        test_sqrt = isPrime(17);
+
     }
+
+    return 0;
 }

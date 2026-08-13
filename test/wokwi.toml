@@ -1,4 +1,5 @@
 [wokwi]
 version = 1
-firmware = 'build/Release/test.elf'
-elf = 'build/Release/test.elf'
+firmware = 'build/Debug/test.elf'
+elf = 'build/Debug/test.elf'
+gdbServerPort = 3333
