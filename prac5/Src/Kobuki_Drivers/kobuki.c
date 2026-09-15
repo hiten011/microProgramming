@@ -13,10 +13,48 @@ void Kobuki_Tx(uint8_t *payload, uint8_t size_payload) {
   checksum ^= size_payload;  // Calculate running checksum
 
   // Send each byte of payload one-by-one
-  for (i = size_payload; i > 0; i--) {
+  for (i = 0; i < size_payload; i++) {
     UART_Tx(payload[i - 1]);
     checksum ^= payload[i - 1];
   }
 
   UART_Tx(checksum);  // Send checksum
+}
+
+uint8_t Kobuki_Rx(uint8_t *feedback, uint32_t size_feedback) {
+  uint8_t feedback_header = 0, size_payload = 0, checksum = 0, rx_checksum = 0;
+  uint32_t i;
+
+  // 1. Find the valid 0xAA 0x55 sequence
+  while (1) {
+    feedback_header = UART_Rx();
+    if (feedback_header == 0xAA) {
+      feedback_header = UART_Rx();
+      if (feedback_header == 0x55) {
+        break;  // Valid start found, exit finding loop
+      }
+    }
+  }
+
+  // 2. Read Payload Length, first byte is size of payload in bytes
+  size_payload = UART_Rx();
+  checksum ^= size_payload;  // checksum is XORed value of entire bytestream
+
+  // 3. Determine safe boundary to prevent array overflow
+  uint32_t limit = (size_payload < size_feedback) ? size_payload : size_feedback;
+
+  // 4. Read into array of bytestream, this is the basic sensor data
+  for (i = 0; i < limit; i++) {
+    feedback[i] = UART_Rx();
+    checksum ^= feedback[i];
+  }
+
+  // 5. Read and discard remaining payload (just for checksum), this is the size of rest of byestream
+  for (i = limit; i < size_payload; i++) {
+    checksum ^= UART_Rx();
+  }
+
+  // 6. Verify Checksum
+  rx_checksum = UART_Rx();  // checksum from kobuki - final byte
+  return (checksum != rx_checksum);  // 0 = Success, 1 = Error
 }
