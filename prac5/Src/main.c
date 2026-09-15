@@ -17,9 +17,11 @@
  */
 
 #include <stdint.h>
+#include "G474RE_Drivers/uart.h"
 
 int main(void)
 {
+    UART_Init();
     /* Loop forever */
 	while (1) {
         // do nothing
