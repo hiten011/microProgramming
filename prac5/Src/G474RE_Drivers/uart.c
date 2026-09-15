@@ -6,8 +6,8 @@
 
 void UART_Init(void) {
   // 1. Enable peripheral clocks
-  RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
-  RCC->APB1ENR1 |= RCC_APB1ENR1_USART3EN;
+  RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;      // GPIO Port
+  RCC->APB1ENR1 |= RCC_APB1ENR1_USART3EN;   // USART3 
 
   // Route HSI16 clock to USART3
   RCC->CCIPR &= ~RCC_CCIPR_USART3SEL;

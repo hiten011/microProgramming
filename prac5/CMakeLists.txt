@@ -41,6 +41,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   Inc/drivers/STM32G4xx_HAL_Driver/Inc
   Inc/drivers/Core/Inc
   Inc/drivers/CMSIS/Device/ST/STM32G4xx/Include
+  Src/G474RE_Drivers
+  Src/Kobuki_Drivers
 )
 
 # Compiler options
