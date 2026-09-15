@@ -13,7 +13,7 @@ void Kobuki_Tx(uint8_t *payload, uint8_t size_payload) {
   checksum ^= size_payload;  // Calculate running checksum
 
   // Send each byte of payload one-by-one
-  for (i = 0; i < size_payload; i++) {
+  for (i = size_payload - 1; i >= 0; i--) {
     UART_Tx(payload[i]);
     checksum ^= payload[i];
   }
