@@ -35,16 +35,16 @@ target_sources(${PROJECT_NAME} PRIVATE
 
 # Add include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
-  # User defined include directories
-)
-
-# Compiler options
-target_compile_options(${PROJECT_NAME} PRIVATE
   Inc/drivers/CMSIS/Core/Include
   Inc/drivers/BSP/STM32G4xx_Nucleo
   Inc/drivers/STM32G4xx_HAL_Driver/Inc
   Inc/drivers/Core/Inc
   Inc/drivers/CMSIS/Device/ST/STM32G4xx/Include
+)
+
+# Compiler options
+target_compile_options(${PROJECT_NAME} PRIVATE
+  # User defined compiler options
 )
 
 # Add additional defined symbols
