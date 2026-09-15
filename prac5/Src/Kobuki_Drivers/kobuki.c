@@ -58,3 +58,22 @@ uint8_t Kobuki_Rx(uint8_t *feedback, uint32_t size_feedback) {
   rx_checksum = UART_Rx();  // checksum from kobuki - final byte
   return (checksum != rx_checksum);  // 0 = Success, 1 = Error
 }
+
+// kobuki read datastream
+void Kobuki_Read(Kobuki_Typedef *kobuki) {
+  // Init buffer & checksum
+  uint8_t kobuki_rx_buffer[SIZE_FEEDBACK];
+  uint8_t checksum_result;
+  // Read kobuki Tx data stream
+  checksum_result = Kobuki_Rx(kobuki_rx_buffer, SIZE_FEEDBACK);
+  // If checksum ' checks out ', update sensor variables from buffer
+  if (checksum_result == 0) {
+    kobuki->bumper      = kobuki_rx_buffer[BUMPER];
+    kobuki->wheeldrop   = kobuki_rx_buffer[WHEEL_DROP];
+    kobuki->cliff       = kobuki_rx_buffer[CLIFF];
+    kobuki->button      = kobuki_rx_buffer[BUTTON];
+  }
+  // otherwise do not update
+  else {
+  }
+}
