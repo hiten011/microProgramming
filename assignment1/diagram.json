@@ -53,5 +53,6 @@
     [ "nucleo:5V.1", "btn_step:1.A", "red", [ "v0" ] ],
     [ "btn_step:2.A", "nucleo:PA10", "blue", [ "v0" ] ]
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "elf": "build/Release/assignment1.elf"
 }

@@ -36,6 +36,8 @@ target_sources(${PROJECT_NAME} PRIVATE
 # Add include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
   # User defined include directories
+  Inc/drivers/CMSIS/Core/Include
+  Inc/drivers/cmsis_device_c0/Include
 )
 
 # Compiler options
@@ -46,6 +48,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 # Add additional defined symbols
 target_compile_definitions(${PROJECT_NAME} PRIVATE
   # Add additional defined symbols here
+  STM32C031xx
 )
 
 # Linker options
