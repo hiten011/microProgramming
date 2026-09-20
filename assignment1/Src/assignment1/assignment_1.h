@@ -11,7 +11,5 @@ typedef enum {
 ItemColour_t Apply_LFSR_Fault(ItemColour_t true_col);
 void Generate_Next_Item(void);
 void SysTick_Init(void);
-void Set_Truth_RGB(ItemColour_t truth_colour);
-void Set_Sensor_RGB(ItemColour_t sensor_colour);
 
 #endif

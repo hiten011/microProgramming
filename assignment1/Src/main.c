@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include "assignment1/assignment_1.h"
+#include "assignment1/my_helpers.h"
 #include "stm32c0xx.h"
 #include "stm_helper/my_stm_helper.h"
 
@@ -49,18 +50,6 @@ void Generate_Next_Item(void) {
     sensor_colour = Apply_LFSR_Fault(truth_colour);
     Set_Truth_RGB(truth_colour);
     Set_Sensor_RGB(sensor_colour);
-}
-
-void Set_Truth_RGB(ItemColour_t truth_colour) {
-    Pin_Write(GPIOA, 0, truth_colour == 1);
-    Pin_Write(GPIOA, 1, truth_colour == 2);
-    Pin_Write(GPIOA, 4, truth_colour == 3);
-}
-
-void Set_Sensor_RGB(ItemColour_t sensor_colour) {
-    Pin_Write(GPIOA, 3, sensor_colour == 1);
-    Pin_Write(GPIOA, 11, sensor_colour == 2);
-    Pin_Write(GPIOA, 8, sensor_colour == 3);
 }
 
 /* GENERATE NEW COLOR - END */
