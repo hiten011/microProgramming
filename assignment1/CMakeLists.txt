@@ -39,6 +39,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   Inc/drivers/CMSIS/Core/Include
   Inc/drivers/cmsis_device_c0/Include
   Src/stm_helper
+  Src/assignment1
 )
 
 # Compiler options
