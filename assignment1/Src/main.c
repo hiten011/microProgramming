@@ -68,6 +68,7 @@ void Set_Sensor_RGB(ItemColour_t sensor_colour) {
 typedef enum {STATE_IDLE, STATE_ITEM_NEW, STATE_STAGE1_DONE, STATE_STAGE2_DONE, STATE_FAULT} SystemState_t;
 volatile SystemState_t current_state = STATE_IDLE;
 
+
 void init() {
     // 1. Enabling RCC
     Clock_Enable(GPIOA_BUS);
@@ -95,9 +96,22 @@ void init() {
     SysTick_Init();
 }
 
+void EXTI2_3_IRQHandler() {
+    if ((EXTI->RPR1) & (1<<2)) {
+        EXTI->RPR1 |= (1 << 2); 
+        current_state = STATE_ITEM_NEW;
+    }
+}
+
 int main(void)
 {
     init();
     /* Loop forever */
-	while (1) {}
+	while (1) {
+        switch (current_state) {
+            case STATE_ITEM_NEW:
+                Generate_Next_Item();
+                current_state = STATE_IDLE;
+        }   
+    }
 }
