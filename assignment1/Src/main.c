@@ -16,6 +16,7 @@
  ******************************************************************************
  */
 
+#include <stdbool.h>
 #include <stdint.h>
 #include "assignment1/assignment_1.h"
 #include "assignment1/my_helpers.h"
@@ -54,9 +55,9 @@ void Generate_Next_Item(void) {
 
 /* GENERATE NEW COLOR - END */
 
-typedef enum {STATE_IDLE, STATE_ITEM_NEW, STATE_STAGE1_DONE, STATE_STAGE2_DONE, STATE_FAULT} SystemState_t;
+typedef enum {STATE_IDLE, STATE_ITEM_NEW, STATE_STAGE1, STATE_STAGE2, STATE_FAULT} SystemState_t;
 volatile SystemState_t current_state = STATE_IDLE;
-
+volatile bool isStateChange = false;
 
 void init() {
     // 1. Enabling RCC
@@ -85,10 +86,37 @@ void init() {
     SysTick_Init();
 }
 
+void changeState(SystemState_t st) {
+    current_state = st;
+    isStateChange = true;
+}
+
 void EXTI2_3_IRQHandler() {
-    if ((EXTI->RPR1) & (1<<2)) {
+    if (current_state == STATE_IDLE && (EXTI->RPR1) & (1<<2)) {
+        changeState(STATE_ITEM_NEW);
         EXTI->RPR1 |= (1 << 2); 
-        current_state = STATE_ITEM_NEW;
+    }
+}
+
+void EXTI4_15_IRQHandler() {
+    if ((EXTI->RPR1) & (1<<10)) {
+        switch (current_state) {
+            case STATE_ITEM_NEW:
+                changeState(STATE_STAGE1);
+                break;
+            case STATE_STAGE1:
+                changeState(STATE_STAGE2);
+                break;
+            case STATE_STAGE2:
+                changeState(STATE_IDLE);
+                break;
+        }
+        EXTI->RPR1 |= (1 << 10);
+    }
+
+    if ((EXTI->RPR1) & (1<<5)) {
+        changeState(STATE_FAULT);
+        EXTI->RPR1 |= (1 << 5); 
     }
 }
 
@@ -97,10 +125,32 @@ int main(void)
     init();
     /* Loop forever */
 	while (1) {
+        if (!isStateChange) continue;
+        isStateChange = false;
+
         switch (current_state) {
+            case STATE_IDLE:
+                Set_Truth_RGB(OFF);
+                Set_Sensor_RGB(OFF);
+                Set_Fault(PIN_LOW);
+                break;
+
             case STATE_ITEM_NEW:
                 Generate_Next_Item();
-                current_state = STATE_IDLE;
-        }   
+                Set_Fault(PIN_LOW);
+                break;
+
+            case STATE_STAGE1:
+                Set_Fault(PIN_LOW);
+                break;
+
+            case STATE_STAGE2:
+                Set_Fault(PIN_LOW);
+                break;
+
+            case STATE_FAULT:
+                Set_Fault(PIN_HIGH);
+                break;
+        }
     }
 }
