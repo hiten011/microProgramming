@@ -80,18 +80,18 @@ void init() {
     // 3. Enable Output Pins - PA9 (Fault LED), PA0/PA1/PA4 (Real RGB), PA3/PA11/PA8 (Sensed RGB)
     GPIO_InitPinsSameMode(GPIOA, (uint8_t[]){9, 0, 1, 4, 3, 11, 8}, OUTPUT, PULL_DOWN, 7);
 
-    // 3. Configure Timer
+    // 4. Configure Timer
 
-    // 4. Configure EXTI - PA2, PA10, PB5
+    // 5. Configure EXTI - PA2, PA10, PB5
     EXTI_Init(GPIOA, 2, TRIG_RISING);
     EXTI_Init(GPIOA, 10, TRIG_RISING);
     EXTI_Init(GPIOB, 5, TRIG_RISING);
 
-    // 5. Enable NVIC
+    // 6. Enable NVIC
     NVIC_EnableIRQ(EXTI2_3_IRQn);
-    NVIC_EnableIRQ(EXTI4_15_IRQn);  
+    NVIC_EnableIRQ(EXTI4_15_IRQn);
 
-    // 6. Enable System Tick
+    // 7. Enable System Tick
     SysTick_Init();
 }
 
