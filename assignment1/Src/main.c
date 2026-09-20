@@ -19,10 +19,12 @@
 #include <stdint.h>
 #include "assignment_1.h"
 #include "my_stm_helper.h"
-#include "stm32c031xx.h"
+#include "stm32c0xx.h"
+#include "stm_helper/my_stm_helper.h"
 
 
 /* GENRATING NEW STATE */
+volatile ItemColour_t truth_colour, sensor_colour;
 
 volatile uint32_t lfsr_state = 0xA5A5A5A5;
 
@@ -52,13 +54,37 @@ void Generate_Next_Item(void) {
 
 /* GENRATING NEW STATE - END */
 
+typedef enum {STATE_IDLE, STATE_ITEM_NEW, STATE_STAGE1_DONE, STATE_STAGE2_DONE, STATE_FAULT} SystemState_t;
+volatile SystemState_t current_state = STATE_IDLE;
+
 void init() {
     // 1. Enabling RCC
     Clock_Enable(GPIOA_BUS);
     Clock_Enable(GPIOB_BUS);
 
     // 2. Enable Input Pins - PA2, PA10, PB5
-    GPIO_InitPin(GPIOA, 9, ) 
+    GPIO_InitPin(GPIOA, 2, INPUT, PULL_DOWN); 
+    GPIO_InitPin(GPIOA, 10, INPUT, PULL_DOWN);
+    GPIO_InitPin(GPIOB, 5, INPUT, PULL_DOWN);
+
+    // 3. Enable Output Pins - PA9 (Fault LED), PA0/PA1/PA4 (Real RGB), PA3/PA11/PA8 (Sensed RGB)
+    GPIO_InitPin(GPIOA, 9, INPUT, PULL_DOWN); 
+    GPIO_InitPin(GPIOA, 10, INPUT, PULL_DOWN);
+    GPIO_InitPin(GPIOB, 5, INPUT, PULL_DOWN);
+
+    // 3. Configure Timer
+
+    // 4. Configure EXTI - PA2, PA10, PB5
+    EXTI_Init(GPIOA, 2, TRIG_RISING);
+    EXTI_Init(GPIOA, 10, TRIG_RISING);
+    EXTI_Init(GPIOB, 5, TRIG_RISING);
+
+    // 5. Enable NVIC
+    NVIC_EnableIRQ(EXTI2_3_IRQn);
+    NVIC_EnableIRQ(EXTI4_15_IRQn);  
+
+    // 6. Enable System Tick
+    SysTick_Init();
 }
 
 int main(void)
