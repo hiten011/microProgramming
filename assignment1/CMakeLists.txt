@@ -38,6 +38,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   # User defined include directories
   Inc/drivers/CMSIS/Core/Include
   Inc/drivers/cmsis_device_c0/Include
+  Src/stm_helper
 )
 
 # Compiler options
