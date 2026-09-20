@@ -13,5 +13,5 @@ void Set_Sensor_RGB(ItemColour_t sensor_colour) {
 }
 
 void Set_Fault(PinState st) {
-    Pin_Write(GPIOB, 5, st);
+    Pin_Write(GPIOA, 9, st);
 }
