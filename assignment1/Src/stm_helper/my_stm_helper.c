@@ -1,4 +1,5 @@
 #include "my_stm_helper.h"
+#include <stdint.h>
 
 void Clock_Enable(PeripheralBus_t peripheral) {
   switch (peripheral) {
@@ -16,6 +17,19 @@ void GPIO_InitPin(GPIO_TypeDef *port, uint8_t pin, GPIOMode_t mode, GPIOPull_t p
   port->PUPDR |=  (pull << (pin*2));
 }
 
+void GPIO_InitPins(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t *mode, GPIOPull_t *pull, uint16_t len) {
+  for (int i = 0; i < len; i++) {
+    GPIO_InitPin(port, pins[i], mode[i], pull[i]);
+  }
+}
+
+void GPIO_InitPinsSameMode(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t mode, GPIOPull_t pull, uint16_t len) {
+  for (int i = 0; i < len; i++) {
+    GPIO_InitPin(port, pins[i], mode, pull);
+  }
+}
+
+
 void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt) {
   timer->PSC = psc;
   timer->ARR = arr;
@@ -31,10 +45,12 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
 void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger) {
   // 1. Establish the numerical port identifier
   uint32_t port_idx = 0;
-  switch (port) {
-    case GPIOA: port_idx = 0;  break;
-    case GPIOB: port_idx = 1;  break;
-    case GPIOC: port_idx = 2;  break;
+  if (port == GPIOA) {
+    port_idx = 0;
+  } else if (port == GPIOB) {
+    port_idx = 1;
+  } else if (port == GPIOC) {
+    port_idx = 2;
   }
 
   // 2. Configure the EXTI_EXTICRx Multiplexer
