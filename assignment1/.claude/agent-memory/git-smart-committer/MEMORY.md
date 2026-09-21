@@ -1,0 +1,2 @@
+- [Check diff vs. description](feedback_check_diff_vs_description.md) — verify actual git diff before trusting a caller's summary of "what changed"
+- [STM32 assignment1 repo notes](project_stm32-assignment1-repo.md) — repo layout, `.vscode` outside repo, colour/LFSR module has moved in/out of main.c repeatedly
