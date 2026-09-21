@@ -4,7 +4,7 @@
   "editor": "wokwi",
   "parts": [
     { "type": "board-st-nucleo-c031c6", "id": "nucleo", "top": 0, "left": 0, "attrs": {} },
-    { "type": "wokwi-text", "id": "lbl_name", "top": 50, "left": 300, "attrs": { "text": "Student Name (a1234567)" } },
+    { "type": "wokwi-text", "id": "lbl_name", "top": 50, "left": 300, "attrs": { "text": "Hiten Gupta (a1918705)" } },
     { "type": "wokwi-rgb-led", "id": "rgb_truth", "top": -150, "left": -80, "attrs": { "common": "cathode" } },
     { "type": "wokwi-text", "id": "lbl_truth", "top": -170, "left": -100, "attrs": { "text": "Real Colour" } },
 
