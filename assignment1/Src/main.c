@@ -122,6 +122,8 @@ void EXTI4_15_IRQHandler() {
             case STATE_STAGE2:
                 changeState(STATE_IDLE);
                 break;
+            default:
+                break;
         }
         EXTI->RPR1 |= (1 << 10);
     }
@@ -162,6 +164,8 @@ int main(void)
 
             case STATE_FAULT:
                 Set_Fault(PIN_HIGH);
+                break;
+            default:
                 break;
         }
     }
