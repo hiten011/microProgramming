@@ -82,13 +82,11 @@ void init() {
     GPIO_ConnectPeripheral(GPIOB, 0, TIM3_BUS);
     GPIO_ConnectPeripheral(GPIOC, 7, TIM3_BUS);
 
-    // 6. Configure Timer
-    Timer_Init(TIM3, TIM3_IRQn, 47, 19999, false, true, true);
+    // 8. Configure Timer - force_update (UG) latches the CCR/CCMR values
+    // above immediately, before the counter is ever started
+    Timer_Init(TIM3, TIM3_IRQn, 47, 19999, false, true, true, false);
 
-    // 7. Config timer for pwm
-    Timer_ConfigChannel(TIM3, TIM_CHANNEL_3, TIM_MODE_OUTPUT_PWM1, TIM_POLARITY_RISING, true); // PB0
-    Timer_ConfigChannel(TIM3, TIM_CHANNEL_2, TIM_MODE_OUTPUT_PWM1, TIM_POLARITY_RISING, true); // PC7
-
+    
     // 5. Configure EXTI - PA2, PA10, PB5
     EXTI_Init(GPIOA, 2, TRIG_RISING, EXTI2_3_IRQn);
     EXTI_Init(GPIOA, 10, TRIG_RISING, EXTI4_15_IRQn);
@@ -168,5 +166,8 @@ int main(void)
             default:
                 break;
         }
+
+        TIM3->CCR3 = 2500; // PB0 duty cycle
+        TIM3->CCR2 = 2500; // PC7 duty cycle
     }
 }

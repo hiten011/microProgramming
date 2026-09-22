@@ -27,8 +27,8 @@ typedef enum {
 void Clock_Enable(PeripheralBus_t peripheral);
 
 // TIMER
-void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt, bool enable_arpe, bool force_update);
-void Timer_ConfigChannel(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, TimerPolarity_t polarity, bool enable_preload);
+void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt, bool enable_arpe, bool force_update, bool enable_counter);
+void Timer_ConfigChannel(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, TimerPolarity_t polarity, bool enable_preload, bool enable_counter);
 
 // EXTI
 void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger, IRQn_Type irq_type);

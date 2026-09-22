@@ -53,8 +53,7 @@ void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, PeripheralBus_t per
   }
 }
 
-void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt,
-                 bool enable_arpe, bool force_update) {
+void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt, bool enable_arpe, bool force_update, bool enable_counter) {
   timer->PSC = psc;
   timer->ARR = arr;
 
@@ -70,10 +69,13 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
     timer->DIER |= 1<<0;
     NVIC_EnableIRQ(irq_type);
   }
-  timer->CR1 |= 1<<0;
+
+  if (enable_counter) {
+    timer->CR1 |= (1 << 0);
+  }
 }
 
-void Timer_ConfigChannel(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, TimerPolarity_t polarity, bool enable_preload) {
+void Timer_ConfigChannel(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, TimerPolarity_t polarity, bool enable_preload, bool enable_counter) {
   // Channels 1-2 live in CCMR1, channels 3-4 in CCMR2; each gets an 8-bit slice.
   volatile uint32_t *ccmr = (channel < TIM_CHANNEL_3) ? &timer->CCMR1 : &timer->CCMR2;
   uint8_t ccmr_shift = (channel % 2) * 8;
@@ -118,6 +120,10 @@ void Timer_ConfigChannel(TIM_TypeDef *timer, TimerChannel_t channel, TimerChanne
   }
 
   timer->CCER |= (1 << ccer_shift); // CCxE: enable this channel
+
+  if (enable_counter) {
+    timer->CR1 |= (1 << 0); // CEN: start counting
+  }
 }
 
 
