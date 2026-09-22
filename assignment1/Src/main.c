@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include "assignment1/assignment_1.h"
 #include "assignment1/my_helpers.h"
+#include "stm32c031xx.h"
 #include "stm32c0xx.h"
 #include "stm_helper/my_stm_helper.h"
 
@@ -63,6 +64,8 @@ void init() {
     // 1. Enabling RCC
     Clock_Enable(GPIOA_BUS);
     Clock_Enable(GPIOB_BUS);
+    Clock_Enable(GPIOC_BUS);
+    Clock_Enable(TIM3_BUS);
 
     // 2. Enable Input Pins - PA2, PA10, PB5
     GPIO_InitPinsSameMode(GPIOA, (uint8_t[]){2, 10}, INPUT, PULL_DOWN, 2);
@@ -71,7 +74,16 @@ void init() {
     // 3. Enable Output Pins - PA9 (Fault LED), PA0/PA1/PA4 (Real RGB), PA3/PA11/PA8 (Sensed RGB)
     GPIO_InitPinsSameMode(GPIOA, (uint8_t[]){9, 0, 1, 4, 3, 11, 8}, OUTPUT, PULL_DOWN, 7);
 
-    // 4. Configure Timer
+    // 4. Enabling GPIO pins for servo (TIM3)
+    GPIO_InitPin(GPIOB, 0, ALT, NONE);
+    GPIO_InitPin(GPIOC, 7, ALT, NONE);
+
+    // 5. connect to pin timer preipheral
+    GPIO_ConnectPeripheral(GPIOB, 0, TIM3_BUS);
+    GPIO_ConnectPeripheral(GPIOC, 7, TIM3_BUS);
+
+    // 6. Configure Timer
+    Timer_Init(TIM3, TIM3_IRQn, 47, 19999, false);
 
     // 5. Configure EXTI - PA2, PA10, PB5
     EXTI_Init(GPIOA, 2, TRIG_RISING);
