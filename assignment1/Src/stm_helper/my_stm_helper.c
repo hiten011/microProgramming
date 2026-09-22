@@ -15,6 +15,8 @@ void Clock_Enable(PeripheralBus_t peripheral) {
 void GPIO_InitPin(GPIO_TypeDef *port, uint8_t pin, GPIOMode_t mode, GPIOPull_t pull) {
   port->MODER &= ~(0b11 << (pin*2));
   port->MODER |=  (mode << (pin*2));
+
+  // Configure Pull-Up/Pull-Down Resistor
   port->PUPDR &= ~(0b11 << (pin*2));
   port->PUPDR |=  (pull << (pin*2));
 }
@@ -105,18 +107,18 @@ void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger, IRQn_Type i
   NVIC_EnableIRQ(irq_type);
 }
 
-uint8_t Pin_Read(GPIO_TypeDef *port, uint8_t pin) {
-  return (uint8_t)((port->IDR >> pin) & 1U);
-}
-
-void Pin_Write(GPIO_TypeDef *port, uint8_t pin, PinState state) {
-  if (state == PIN_HIGH) {
-    port->ODR |= (1U << pin);
-  } else {
-    port->ODR &= ~(1U << pin);
-  }
-}
-
 void GPIO_OutputTogglePin(GPIO_TypeDef *port, uint8_t pin) {
   port->ODR ^= (1 << pin);
+}
+
+void GPIO_OutputSetPin(GPIO_TypeDef *port, uint8_t pin) {
+  port->ODR |= (1 << pin);
+}
+
+void GPIO_OutputClearPin(GPIO_TypeDef *port, uint8_t pin) {
+  port->ODR &= ~(1 << pin);
+}
+
+bool GPIO_InputReadPin(GPIO_TypeDef *port, uint8_t pin) {
+  return (port->IDR & (1 << pin)) != 0; // Check if Pin is high
 }
