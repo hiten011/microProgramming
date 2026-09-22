@@ -53,14 +53,71 @@ void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, PeripheralBus_t per
   }
 }
 
-void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt) {
+void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt,
+                 bool enable_arpe, bool force_update) {
   timer->PSC = psc;
   timer->ARR = arr;
+
+  if (enable_arpe) {
+    timer->CR1 |= (1 << 7); // ARPE: buffer ARR, only reload on update event
+  }
+
+  if (force_update) {
+    timer->EGR |= (1 << 0); // UG: force PSC/ARR to load now instead of on next overflow
+  }
+
   if (enable_interrupt) {
     timer->DIER |= 1<<0;
     NVIC_EnableIRQ(irq_type);
   }
   timer->CR1 |= 1<<0;
+}
+
+void Timer_ConfigChannel(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, TimerPolarity_t polarity, bool enable_preload) {
+  // Channels 1-2 live in CCMR1, channels 3-4 in CCMR2; each gets an 8-bit slice.
+  volatile uint32_t *ccmr = (channel < TIM_CHANNEL_3) ? &timer->CCMR1 : &timer->CCMR2;
+  uint8_t ccmr_shift = (channel % 2) * 8;
+  uint8_t ccer_shift = channel * 4; // CCxE=+0, CCxP=+1, CCxNP=+3 (CC1E=bit0, CC2E=bit4, ...)
+
+  *ccmr &= ~(0xFFUL << ccmr_shift); // Clear this channel's whole 8-bit slice
+
+  switch (mode) {
+    case TIM_MODE_INPUT_CAPTURE:
+      *ccmr |= (0b01 << ccmr_shift); // CCxS = 01: IC mapped to direct input (TIx)
+      break;
+    case TIM_MODE_OUTPUT_FROZEN:
+      break; // CCxS = 00, OCxM = 000: nothing to set
+    case TIM_MODE_OUTPUT_TOGGLE:
+      *ccmr |= (0b011 << (ccmr_shift + 4)); // OCxM = 011
+      break;
+    case TIM_MODE_OUTPUT_PWM1:
+      *ccmr |= (0b110 << (ccmr_shift + 4)); // OCxM = 110
+      break;
+    case TIM_MODE_OUTPUT_PWM2:
+      *ccmr |= (0b111 << (ccmr_shift + 4)); // OCxM = 111
+      break;
+  }
+
+  if (enable_preload) {
+    *ccmr |= (1 << (ccmr_shift + 3)); // OCxPE: buffer CCRx, only reload on update event
+  }
+
+  switch (polarity) {
+    case TIM_POLARITY_RISING:
+      timer->CCER &= ~(1 << (ccer_shift + 1)); // CCxP = 0
+      timer->CCER &= ~(1 << (ccer_shift + 3)); // CCxNP = 0
+      break;
+    case TIM_POLARITY_FALLING:
+      timer->CCER |=  (1 << (ccer_shift + 1)); // CCxP = 1
+      timer->CCER &= ~(1 << (ccer_shift + 3)); // CCxNP = 0
+      break;
+    case TIM_POLARITY_BOTH:
+      timer->CCER |=  (1 << (ccer_shift + 1)); // CCxP = 1
+      timer->CCER |=  (1 << (ccer_shift + 3)); // CCxNP = 1
+      break;
+  }
+
+  timer->CCER |= (1 << ccer_shift); // CCxE: enable this channel
 }
 
 

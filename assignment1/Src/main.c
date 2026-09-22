@@ -83,7 +83,11 @@ void init() {
     GPIO_ConnectPeripheral(GPIOC, 7, TIM3_BUS);
 
     // 6. Configure Timer
-    Timer_Init(TIM3, TIM3_IRQn, 47, 19999, false);
+    Timer_Init(TIM3, TIM3_IRQn, 47, 19999, false, true, true);
+
+    // 7. Config timer for pwm
+    Timer_ConfigChannel(TIM3, TIM_CHANNEL_3, TIM_MODE_OUTPUT_PWM1, TIM_POLARITY_RISING, true); // PB0
+    Timer_ConfigChannel(TIM3, TIM_CHANNEL_2, TIM_MODE_OUTPUT_PWM1, TIM_POLARITY_RISING, true); // PC7
 
     // 5. Configure EXTI - PA2, PA10, PB5
     EXTI_Init(GPIOA, 2, TRIG_RISING, EXTI2_3_IRQn);
