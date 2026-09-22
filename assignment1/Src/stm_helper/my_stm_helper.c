@@ -63,7 +63,7 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
 
 
 // --- EXTI Wrappers ---
-void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger) {
+void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger, IRQn_Type irq_type) {
   // 1. Establish the numerical port identifier
   uint32_t port_idx = 0;
   if (port == GPIOA) {
@@ -83,15 +83,26 @@ void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger) {
 
   // 3. Configure Trigger Selection Registers : EXTI - > FTSR1 and EXTI - >
   // RTSR1
+  // Clear existing trigger configurations
+  EXTI->FTSR1 &= ~(1 << pin);
+  EXTI->RTSR1 &= ~(1 << pin);
   if (trigger == TRIG_FALLING || trigger == TRIG_BOTH) {
-    EXTI->FTSR1 |= (1 << pin);
+    EXTI->FTSR1 |= (1 << pin); // Enable Falling Edge
   }
   if (trigger == TRIG_RISING || trigger == TRIG_BOTH) {
-    EXTI->RTSR1 |= (1 << pin);
+    EXTI->RTSR1 |= (1 << pin); // Enable Rising Edge
   }
 
   // 4. Unmask the designated interrupt line : EXTI - > IMR1
   EXTI->IMR1 |= (1<< pin);
+
+  // Clear any pending flags (FPR1 = Falling, RPR1 = Rising)
+  // Write to clear register
+  EXTI->FPR1 |= (1 << pin);
+  EXTI->RPR1 |= (1 << pin);
+
+  // 5. Enable the shared NVIC line (idempotent if already enabled by another pin)
+  NVIC_EnableIRQ(irq_type);
 }
 
 uint8_t Pin_Read(GPIO_TypeDef *port, uint8_t pin) {

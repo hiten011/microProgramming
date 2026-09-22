@@ -18,7 +18,7 @@ void GPIO_InitPins(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t *mode, GPIOPull
 void GPIO_InitPinsSameMode(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t mode, GPIOPull_t pull, uint16_t len);
 
 void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt);
-void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger);
+void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger, IRQn_Type irq_type);
 
 void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, PeripheralBus_t peripheral);
 

@@ -86,13 +86,9 @@ void init() {
     Timer_Init(TIM3, TIM3_IRQn, 47, 19999, false);
 
     // 5. Configure EXTI - PA2, PA10, PB5
-    EXTI_Init(GPIOA, 2, TRIG_RISING);
-    EXTI_Init(GPIOA, 10, TRIG_RISING);
-    EXTI_Init(GPIOB, 5, TRIG_RISING);
-
-    // 6. Enable NVIC
-    NVIC_EnableIRQ(EXTI2_3_IRQn);
-    NVIC_EnableIRQ(EXTI4_15_IRQn);
+    EXTI_Init(GPIOA, 2, TRIG_RISING, EXTI2_3_IRQn);
+    EXTI_Init(GPIOA, 10, TRIG_RISING, EXTI4_15_IRQn);
+    EXTI_Init(GPIOB, 5, TRIG_RISING, EXTI4_15_IRQn);
 
     // 7. Enable System Tick
     SysTick_Init();
