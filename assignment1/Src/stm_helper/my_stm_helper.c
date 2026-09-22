@@ -5,8 +5,10 @@ void Clock_Enable(PeripheralBus_t peripheral) {
   switch (peripheral) {
     case GPIOA_BUS: RCC->IOPENR  |= 1<<0;  break;
     case GPIOB_BUS: RCC->IOPENR  |= 1<<1;  break;
-    case TIM16_BUS: RCC->APBENR2|= 1<<17; break;
-    case TIM17_BUS: RCC->APBENR2|= 1<<18; break;
+    case GPIOC_BUS: RCC->IOPENR  |= 1<<2;  break;
+    case TIM16_BUS: RCC->APBENR2 |= 1<<17; break;
+    case TIM17_BUS: RCC->APBENR2 |= 1<<18; break;
+    case TIM3_BUS:  RCC->APBENR1 |= 1<<1;  break;
   }
 }
 
@@ -29,6 +31,25 @@ void GPIO_InitPinsSameMode(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t mode, G
   }
 }
 
+// Fills AFR with the peripheral's AF number (per STM32C0 datasheet AF table).
+// Caller is responsible for setting the pin to ALT mode.
+void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, PeripheralBus_t peripheral) {
+  uint8_t af;
+  switch (peripheral) {
+    case TIM3_BUS:  af = 1; break;
+    case TIM16_BUS: af = 5; break;
+    case TIM17_BUS: af = 5; break;
+    default: return; // no AF mapping for this peripheral
+  }
+
+  if (pin < 8) {
+    port->AFR[0] &= ~(0xFUL << (pin * 4));
+    port->AFR[0] |=  (af << (pin * 4));
+  } else {
+    port->AFR[1] &= ~(0xFUL << ((pin - 8) * 4));
+    port->AFR[1] |=  (af << ((pin - 8) * 4));
+  }
+}
 
 void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t arr, bool enable_interrupt) {
   timer->PSC = psc;
