@@ -89,10 +89,9 @@ void init() {
     PWM_Init(TIM3, TIM_CHANNEL_2, TIM_MODE_OUTPUT_PWM1, true);
     PWM_Init(TIM3, TIM_CHANNEL_3, TIM_MODE_OUTPUT_PWM1, true);
 
-    Gate1_SetWidth(GATE_ANGLE_C); // PB0
-    Gate2_SetWidth(GATE_ANGLE_C); // PC7
+    Gate1_SetWidth(GATE_ANGLE_NEUTRAL); // PC7
+    Gate2_SetWidth(GATE_ANGLE_NEUTRAL); // PB0
 
-    
     // 5. Configure EXTI - PA2, PA10, PB5
     EXTI_Init(GPIOA, 2, TRIG_RISING, EXTI2_3_IRQn);
     EXTI_Init(GPIOA, 10, TRIG_RISING, EXTI4_15_IRQn);
@@ -148,26 +147,57 @@ int main(void)
 
         switch (current_state) {
             case STATE_IDLE:
+                // LED
                 Set_Truth_RGB(OFF);
                 Set_Sensor_RGB(OFF);
                 Set_Fault(PIN_LOW);
+
+                // Servo
+                Gate1_SetWidth(GATE_ANGLE_NEUTRAL); // PC7
+                Gate2_SetWidth(GATE_ANGLE_NEUTRAL); // PB0
                 break;
 
             case STATE_ITEM_NEW:
+                // LED
                 Generate_Next_Item();
                 Set_Fault(PIN_LOW);
+
+                // Servo
+                Gate1_SetWidth(GATE_ANGLE_NEUTRAL); // PC7
+                Gate2_SetWidth(GATE_ANGLE_NEUTRAL); // PB0
                 break;
 
             case STATE_STAGE1:
+                // LED
                 Set_Fault(PIN_LOW);
+
+                // servo
+                Gate1_SetWidth(Read_Sensor_RGB() == (ItemColour_t)BLUE ? GATE_ANGLE_AC : GATE_ANGLE_C);
                 break;
 
             case STATE_STAGE2:
+                // LED
                 Set_Fault(PIN_LOW);
+
+                // servo
+                switch (Read_Sensor_RGB()) {
+                    case GREEN:
+                        Gate2_SetWidth(GATE_ANGLE_AC);
+                        break;
+                    case RED:
+                        Gate2_SetWidth(GATE_ANGLE_C);
+                        break;
+                    default:
+                        Gate2_SetWidth(GATE_ANGLE_NEUTRAL);
+                }
+
                 break;
 
             case STATE_FAULT:
                 Set_Fault(PIN_HIGH);
+
+                Gate1_SetWidth(GATE_ANGLE_NEUTRAL);
+                Gate2_SetWidth(GATE_ANGLE_NEUTRAL);
                 break;
             default:
                 break;
