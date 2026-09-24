@@ -31,14 +31,14 @@ ItemColour_t Read_Truth_RGB() {
     if (GPIO_InputReadPin(GPIOA, 0)) return RED;
     if (GPIO_InputReadPin(GPIOA, 1)) return GREEN;
     if (GPIO_InputReadPin(GPIOA, 4)) return BLUE;
-    return NONE;
+    return OFF;
 }
 
 ItemColour_t Read_Sensor_RGB() {
     if (GPIO_InputReadPin(GPIOA, 3)) return RED;
     if (GPIO_InputReadPin(GPIOA, 11)) return GREEN;
     if (GPIO_InputReadPin(GPIOA, 8)) return BLUE;
-    return NONE;
+    return OFF;
 }
 
 void Gate1_SetWidth(uint16_t width_ms) {
