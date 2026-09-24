@@ -9,9 +9,9 @@ void Set_Sensor_RGB(ItemColour_t sensor_colour);
 void Set_Fault(PinState st);
 
 // SERVO GATES
-#define GATE_ANGLE_0    1000
-#define GATE_ANGLE_90   1500
-#define GATE_ANGLE_180  2000
+#define GATE_ANGLE_AC           1000
+#define GATE_ANGLE_NEUTRAL      1500
+#define GATE_ANGLE_C            2000
 
 void Gate1_SetWidth(uint16_t width_ms); // PB0 / TIM3_CH3
 void Gate2_SetWidth(uint16_t width_ms); // PC7 / TIM3_CH2

@@ -89,8 +89,8 @@ void init() {
     PWM_Init(TIM3, TIM_CHANNEL_2, TIM_MODE_OUTPUT_PWM1, true);
     PWM_Init(TIM3, TIM_CHANNEL_3, TIM_MODE_OUTPUT_PWM1, true);
 
-    Gate1_SetWidth(GATE_ANGLE_180); // PB0
-    Gate2_SetWidth(GATE_ANGLE_180); // PC7
+    Gate1_SetWidth(GATE_ANGLE_C); // PB0
+    Gate2_SetWidth(GATE_ANGLE_C); // PC7
 
     
     // 5. Configure EXTI - PA2, PA10, PB5
