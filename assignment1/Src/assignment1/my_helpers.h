@@ -8,6 +8,9 @@ void Set_Truth_RGB(ItemColour_t truth_colour);
 void Set_Sensor_RGB(ItemColour_t sensor_colour);
 void Set_Fault(PinState st);
 
+ItemColour_t Read_Truth_RGB();
+ItemColour_t Read_Sensor_RGB();
+
 // SERVO GATES
 #define GATE_ANGLE_AC           1000
 #define GATE_ANGLE_NEUTRAL      1500

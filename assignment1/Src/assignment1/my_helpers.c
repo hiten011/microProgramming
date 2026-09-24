@@ -25,6 +25,22 @@ void Set_Fault(PinState st) {
     Pin_Set_If(GPIOA, 9, st == PIN_HIGH);
 }
 
+
+
+ItemColour_t Read_Truth_RGB() {
+    if (GPIO_InputReadPin(GPIOA, 0)) return RED;
+    if (GPIO_InputReadPin(GPIOA, 1)) return GREEN;
+    if (GPIO_InputReadPin(GPIOA, 4)) return BLUE;
+    return NONE;
+}
+
+ItemColour_t Read_Sensor_RGB() {
+    if (GPIO_InputReadPin(GPIOA, 3)) return RED;
+    if (GPIO_InputReadPin(GPIOA, 11)) return GREEN;
+    if (GPIO_InputReadPin(GPIOA, 8)) return BLUE;
+    return NONE;
+}
+
 void Gate1_SetWidth(uint16_t width_ms) {
     TIM3->CCR2 = width_ms;
 }
