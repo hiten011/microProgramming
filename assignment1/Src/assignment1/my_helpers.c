@@ -23,3 +23,11 @@ void Set_Sensor_RGB(ItemColour_t sensor_colour) {
 void Set_Fault(PinState st) {
     Pin_Set_If(GPIOA, 9, st == PIN_HIGH);
 }
+
+void Gate1_SetWidth(uint16_t width_ms) {
+    TIM3->CCR3 = width_ms;
+}
+
+void Gate2_SetWidth(uint16_t width_ms) {
+    TIM3->CCR2 = width_ms;
+}
