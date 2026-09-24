@@ -79,8 +79,8 @@ void init() {
     GPIO_InitPin(GPIOC, 7, ALT, NONE);
 
     // 5. connect to pin timer preipheral
-    GPIO_ConnectPeripheral(GPIOB, 0, TIM3_BUS);
-    GPIO_ConnectPeripheral(GPIOC, 7, TIM3_BUS);
+    GPIO_ConnectPeripheral(GPIOB, 0, 1);
+    GPIO_ConnectPeripheral(GPIOC, 7, 1);
 
     // 8. Configure Timer - force_update (UG) latches the CCR/CCMR values
     // above immediately, before the counter is ever started

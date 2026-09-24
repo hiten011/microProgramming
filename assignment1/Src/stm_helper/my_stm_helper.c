@@ -35,21 +35,13 @@ void GPIO_InitPinsSameMode(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t mode, G
 
 // Fills AFR with the peripheral's AF number (per STM32C0 datasheet AF table).
 // Caller is responsible for setting the pin to ALT mode.
-void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, PeripheralBus_t peripheral) {
-  uint8_t af;
-  switch (peripheral) {
-    case TIM3_BUS:  af = 1; break;
-    case TIM16_BUS: af = 5; break;
-    case TIM17_BUS: af = 5; break;
-    default: return; // no AF mapping for this peripheral
-  }
-
+void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, uint8_t af) {
   if (pin < 8) {
     port->AFR[0] &= ~(0xFUL << (pin * 4));
-    port->AFR[0] |=  (af << (pin * 4));
+    port->AFR[0] |=  ((uint32_t)af << (pin * 4));
   } else {
     port->AFR[1] &= ~(0xFUL << ((pin - 8) * 4));
-    port->AFR[1] |=  (af << ((pin - 8) * 4));
+    port->AFR[1] |=  ((uint32_t)af << ((pin - 8) * 4));
   }
 }
 

@@ -37,7 +37,7 @@ void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger, IRQn_Type i
 void GPIO_InitPin(GPIO_TypeDef *port, uint8_t pin, GPIOMode_t mode, GPIOPull_t pull);
 void GPIO_InitPins(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t *mode, GPIOPull_t *pull, uint16_t len);
 void GPIO_InitPinsSameMode(GPIO_TypeDef *port, uint8_t *pins, GPIOMode_t mode, GPIOPull_t pull, uint16_t len);
-void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, PeripheralBus_t peripheral);
+void GPIO_ConnectPeripheral(GPIO_TypeDef *port, uint8_t pin, uint8_t af);
 
 void GPIO_OutputTogglePin(GPIO_TypeDef *port, uint8_t pin);
 void GPIO_OutputSetPin(GPIO_TypeDef *port, uint8_t pin);
