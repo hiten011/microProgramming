@@ -10,11 +10,11 @@ typedef enum { NONE=0b00, PULL_UP=0b01, PULL_DOWN=0b10 } GPIOPull_t;
 typedef enum { TRIG_RISING = 0, TRIG_FALLING = 1, TRIG_BOTH = 2 } ExtiTrigger;
 typedef enum { TIM_CHANNEL_1 = 0, TIM_CHANNEL_2 = 1, TIM_CHANNEL_3 = 2, TIM_CHANNEL_4 = 3 } TimerChannel_t;
 typedef enum {
-  TIM_MODE_INPUT_CAPTURE, // CCxS = 01, direct mapping (TIx)
-  TIM_MODE_OUTPUT_FROZEN, // CCxS = 00, OCxM = 000: output unaffected by compare match
-  TIM_MODE_OUTPUT_TOGGLE, // CCxS = 00, OCxM = 011: toggle output on compare match
-  TIM_MODE_OUTPUT_PWM1,   // CCxS = 00, OCxM = 110: active while CNT < CCR
-  TIM_MODE_OUTPUT_PWM2,   // CCxS = 00, OCxM = 111: active while CNT >= CCR
+  TIM_MODE_INPUT_CAPTURE, 
+  TIM_MODE_OUTPUT_FROZEN, 
+  TIM_MODE_OUTPUT_TOGGLE, 
+  TIM_MODE_OUTPUT_PWM1,   
+  TIM_MODE_OUTPUT_PWM2,   
 } TimerChannelMode_t;
 
 

@@ -68,28 +68,36 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
 }
 
 void PWM_Init(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, bool enable_counter) {
-  uint32_t ccmr_val;
+  uint32_t OC2M, CC2S;
 
   switch (mode) {
-    case TIM_MODE_INPUT_CAPTURE:  ccmr_val = 0b0000001; break; // CCxS=01, OCxM=000
-    case TIM_MODE_OUTPUT_FROZEN:  ccmr_val = 0b0000000; break; // CCxS=00, OCxM=000
-    case TIM_MODE_OUTPUT_TOGGLE:  ccmr_val = 0b0110000; break; // CCxS=00, OCxM=011
-    case TIM_MODE_OUTPUT_PWM1:    ccmr_val = 0b1100000; break; // CCxS=00, OCxM=110
-    case TIM_MODE_OUTPUT_PWM2:    ccmr_val = 0b1110000; break; // CCxS=00, OCxM=111
-    default:                      ccmr_val = 0b0000000; break;
+    case TIM_MODE_OUTPUT_PWM1:    OC2M = 0b110, CC2S = 0b00; break;  
+    default:                      OC2M = 0b000, CC2S = 0b00; break;
   }
 
   switch (channel) {
     case TIM_CHANNEL_2:
+      // Set mode
       timer->CCMR1 &= ~(0b11 << 8);
-      timer->CCMR1 |=  (ccmr_val << 8);
+      timer->CCMR1 |=  (CC2S << 8);
+
+      // set further 
+      timer->CCMR1 &= ~(0b111 << 12);
+      timer->CCMR1 |=  (OC2M << 12);
+
       timer->CCMR1 |= (1 << 11); // enable preload
       timer->CCER  |= (1 << 4);  // enable output
       break;
 
     case TIM_CHANNEL_3:
+      // Set mode
       timer->CCMR2 &= ~(0b11 << 0);
-      timer->CCMR2 |=  (ccmr_val << 0);
+      timer->CCMR2 |=  (CC2S << 0);
+
+      // set further 
+      timer->CCMR2 &= ~(0b111 << 4);
+      timer->CCMR2 |=  (OC2M << 4);
+
       timer->CCMR2 |= (1 << 3);  // enable preload
       timer->CCER  |= (1 << 8);  // enable output
       break;
