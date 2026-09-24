@@ -107,9 +107,11 @@ void changeState(SystemState_t st) {
 }
 
 void EXTI2_3_IRQHandler() {
-    if (current_state == STATE_IDLE && (EXTI->RPR1) & (1<<2)) {
-        changeState(STATE_ITEM_NEW);
-        EXTI->RPR1 |= (1 << 2); 
+    if ((EXTI->RPR1) & (1<<2)) {
+        if (current_state == STATE_IDLE) {
+            changeState(STATE_ITEM_NEW);
+        }
+        EXTI->RPR1 |= (1 << 2);
     }
 }
 
