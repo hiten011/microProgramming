@@ -67,55 +67,41 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
   }
 }
 
-void Timer_ConfigChannel(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, TimerPolarity_t polarity, bool enable_preload, bool enable_counter) {
-  // Channels 1-2 live in CCMR1, channels 3-4 in CCMR2; each gets an 8-bit slice.
-  volatile uint32_t *ccmr = (channel < TIM_CHANNEL_3) ? &timer->CCMR1 : &timer->CCMR2;
-  uint8_t ccmr_shift = (channel % 2) * 8;
-  uint8_t ccer_shift = channel * 4; // CCxE=+0, CCxP=+1, CCxNP=+3 (CC1E=bit0, CC2E=bit4, ...)
-
-  *ccmr &= ~(0xFFUL << ccmr_shift); // Clear this channel's whole 8-bit slice
+void PWM_Init(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, bool enable_counter) {
+  uint32_t ccmr_val;
 
   switch (mode) {
-    case TIM_MODE_INPUT_CAPTURE:
-      *ccmr |= (0b01 << ccmr_shift); // CCxS = 01: IC mapped to direct input (TIx)
-      break;
-    case TIM_MODE_OUTPUT_FROZEN:
-      break; // CCxS = 00, OCxM = 000: nothing to set
-    case TIM_MODE_OUTPUT_TOGGLE:
-      *ccmr |= (0b011 << (ccmr_shift + 4)); // OCxM = 011
-      break;
-    case TIM_MODE_OUTPUT_PWM1:
-      *ccmr |= (0b110 << (ccmr_shift + 4)); // OCxM = 110
-      break;
-    case TIM_MODE_OUTPUT_PWM2:
-      *ccmr |= (0b111 << (ccmr_shift + 4)); // OCxM = 111
-      break;
+    case TIM_MODE_INPUT_CAPTURE:  ccmr_val = 0b0000001; break; // CCxS=01, OCxM=000
+    case TIM_MODE_OUTPUT_FROZEN:  ccmr_val = 0b0000000; break; // CCxS=00, OCxM=000
+    case TIM_MODE_OUTPUT_TOGGLE:  ccmr_val = 0b0110000; break; // CCxS=00, OCxM=011
+    case TIM_MODE_OUTPUT_PWM1:    ccmr_val = 0b1100000; break; // CCxS=00, OCxM=110
+    case TIM_MODE_OUTPUT_PWM2:    ccmr_val = 0b1110000; break; // CCxS=00, OCxM=111
+    default:                      ccmr_val = 0b0000000; break;
   }
 
-  if (enable_preload) {
-    *ccmr |= (1 << (ccmr_shift + 3)); // OCxPE: buffer CCRx, only reload on update event
-  }
+  switch (channel) {
+    case TIM_CHANNEL_2:
+      timer->CCMR1 &= ~(0b11 << 8);
+      timer->CCMR1 |=  (ccmr_val << 8);
+      timer->CCMR1 |= (1 << 11); // enable preload
+      timer->CCER  |= (1 << 4);  // enable output
+      break;
 
-  switch (polarity) {
-    case TIM_POLARITY_RISING:
-      timer->CCER &= ~(1 << (ccer_shift + 1)); // CCxP = 0
-      timer->CCER &= ~(1 << (ccer_shift + 3)); // CCxNP = 0
+    case TIM_CHANNEL_3:
+      timer->CCMR2 &= ~(0b11 << 0);
+      timer->CCMR2 |=  (ccmr_val << 0);
+      timer->CCMR2 |= (1 << 3);  // enable preload
+      timer->CCER  |= (1 << 8);  // enable output
       break;
-    case TIM_POLARITY_FALLING:
-      timer->CCER |=  (1 << (ccer_shift + 1)); // CCxP = 1
-      timer->CCER &= ~(1 << (ccer_shift + 3)); // CCxNP = 0
-      break;
-    case TIM_POLARITY_BOTH:
-      timer->CCER |=  (1 << (ccer_shift + 1)); // CCxP = 1
-      timer->CCER |=  (1 << (ccer_shift + 3)); // CCxNP = 1
+
+    default:
       break;
   }
-
-  timer->CCER |= (1 << ccer_shift); // CCxE: enable this channel
 
   if (enable_counter) {
-    timer->CR1 |= (1 << 0); // CEN: start counting
+    timer->CR1 |= (1 << 0);
   }
+
 }
 
 
