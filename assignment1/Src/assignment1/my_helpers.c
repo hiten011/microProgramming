@@ -25,9 +25,9 @@ void Set_Fault(PinState st) {
 }
 
 void Gate1_SetWidth(uint16_t width_ms) {
-    TIM3->CCR3 = width_ms;
+    TIM3->CCR2 = width_ms;
 }
 
 void Gate2_SetWidth(uint16_t width_ms) {
-    TIM3->CCR2 = width_ms;
+    TIM3->CCR3 = width_ms;
 }
