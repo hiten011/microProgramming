@@ -1,0 +1,10 @@
+// Blue:    g1 - UP (ACW)    g2 - nothing (N)
+// Red:     g1 - down (CW)   g2 - down (CW)
+// green:   g1 - down (CW)   g2 - up (ACW)
+
+   R S G1 G2
+1. B B A  N 
+2. B B A  N
+3. G B A  N 
+4. R R C  C
+5. G G C  A
