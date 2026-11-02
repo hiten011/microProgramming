@@ -4,3 +4,8 @@
 1	32	1793582983636675892	CMakeFiles/assignment2.dir/Src/sysmem.c.obj	cc072655b5686192
 1	53	1793582983635454742	CMakeFiles/assignment2.dir/Src/syscall.c.obj	3ab98dd8fc11b447
 53	75	1793582983688155074	assignment2.elf	a43410a199861f4d
+2	31	1793583479412830182	CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj	d5f43d00ec22ae18
+1	61	1793583479412709973	CMakeFiles/assignment2.dir/Src/main.c.obj	df55a6c92e9091fc
+1	67	1793583479412513392	CMakeFiles/assignment2.dir/Src/sysmem.c.obj	cc072655b5686192
+1	79	1793583479410986991	CMakeFiles/assignment2.dir/Src/syscall.c.obj	3ab98dd8fc11b447
+79	100	1793583479489917836	assignment2.elf	a43410a199861f4d

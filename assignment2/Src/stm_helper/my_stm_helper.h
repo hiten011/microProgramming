@@ -3,7 +3,7 @@
 #include "stm32c0xx.h"
 #include <stdbool.h>
 
-typedef enum { GPIOA_BUS, GPIOB_BUS, GPIOC_BUS, TIM16_BUS, TIM17_BUS, TIM3_BUS } PeripheralBus_t;
+typedef enum { GPIOA_BUS, GPIOB_BUS, GPIOC_BUS, TIM16_BUS, TIM17_BUS, TIM3_BUS, I2C1_BUS } PeripheralBus_t;
 typedef enum { INPUT=0b00, OUTPUT=0b01, ALT=0b10, ANALOG=0b11 } GPIOMode_t;
 typedef enum { PIN_LOW = 0, PIN_HIGH = 1 } PinState;
 typedef enum { NONE=0b00, PULL_UP=0b01, PULL_DOWN=0b10 } GPIOPull_t;
@@ -39,5 +39,11 @@ void GPIO_OutputTogglePin(GPIO_TypeDef *port, uint8_t pin);
 void GPIO_OutputSetPin(GPIO_TypeDef *port, uint8_t pin);
 void GPIO_OutputClearPin(GPIO_TypeDef *port, uint8_t pin);
 bool GPIO_InputReadPin(GPIO_TypeDef *port, uint8_t pin);
+
+// I2C (code from ENGE X200 Lecture 8, slides 31-37)
+void I2C_Master_Init(I2C_TypeDef *i2c, uint8_t presc, uint8_t sclh, uint8_t scll);
+bool check_timeout(uint16_t start_tick, uint16_t timeout_ms);
+bool I2C_Master_ReadRegs(I2C_TypeDef *i2c, uint8_t dev_addr, uint8_t reg_addr, uint8_t *rx_buf, uint16_t size);
+bool I2C_Master_WriteReg(I2C_TypeDef *i2c, uint8_t dev_addr, uint8_t reg_addr, uint8_t data);
 
 #endif
