@@ -1,4 +1,4 @@
 [wokwi]
 version = 1
-firmware = 'build/Release/LED_PushButton_CMSIS.elf'
-elf = 'build/Release/LED_PushButton_CMSIS.elf'
+firmware = 'build/Release/assignment2.elf'
+elf = 'build/Release/assignment2.elf'

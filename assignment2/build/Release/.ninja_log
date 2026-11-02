@@ -1,0 +1,6 @@
+# ninja log v7
+2	14	1793582983637186730	CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj	d5f43d00ec22ae18
+2	20	1793582983637017700	CMakeFiles/assignment2.dir/Src/main.c.obj	df55a6c92e9091fc
+1	32	1793582983636675892	CMakeFiles/assignment2.dir/Src/sysmem.c.obj	cc072655b5686192
+1	53	1793582983635454742	CMakeFiles/assignment2.dir/Src/syscall.c.obj	3ab98dd8fc11b447
+53	75	1793582983688155074	assignment2.elf	a43410a199861f4d

@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release",
+  "command": "/home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-gcc -DRTE_DEVICE_STARTUP_STM32C0XX -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os -o CMakeFiles/assignment2.dir/Src/syscall.c.obj -c /home/hiten/dev/UNI/microPrograming/assignment2/Src/syscall.c",
+  "file": "/home/hiten/dev/UNI/microPrograming/assignment2/Src/syscall.c",
+  "output": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/CMakeFiles/assignment2.dir/Src/syscall.c.obj"
+},
+{
+  "directory": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release",
+  "command": "/home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-gcc -DRTE_DEVICE_STARTUP_STM32C0XX -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os -o CMakeFiles/assignment2.dir/Src/sysmem.c.obj -c /home/hiten/dev/UNI/microPrograming/assignment2/Src/sysmem.c",
+  "file": "/home/hiten/dev/UNI/microPrograming/assignment2/Src/sysmem.c",
+  "output": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/CMakeFiles/assignment2.dir/Src/sysmem.c.obj"
+},
+{
+  "directory": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release",
+  "command": "/home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-gcc -DRTE_DEVICE_STARTUP_STM32C0XX -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os -o CMakeFiles/assignment2.dir/Src/main.c.obj -c /home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c",
+  "file": "/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c",
+  "output": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/CMakeFiles/assignment2.dir/Src/main.c.obj"
+},
+{
+  "directory": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release",
+  "command": "/home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-gcc -DRTE_DEVICE_STARTUP_STM32C0XX -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os -x assembler-with-cpp -MMD -MP -o CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj -c /home/hiten/dev/UNI/microPrograming/assignment2/Src/startup_stm32c031xx.S",
+  "file": "/home/hiten/dev/UNI/microPrograming/assignment2/Src/startup_stm32c031xx.S",
+  "output": "/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj"
+}
+]
