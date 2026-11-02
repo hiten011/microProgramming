@@ -280,3 +280,33 @@ bool I2C_Master_WriteReg(I2C_TypeDef *i2c, uint8_t dev_addr, uint8_t reg_addr, u
   i2c->ICR |= (1<<5); // Write 1 to clear stop flag
   return true;
 }
+
+// MPU
+// MPU6050 accelerometer functions
+// Wake MPU6050 and select the +/- 2g accelerometer range
+bool MPU6050_Init(void) {
+    if (!I2C_Master_WriteReg(I2C1, MPU6050_ADDR, MPU6050_PWR_MGMT_1, 0x00)) {
+        return false;
+    }
+
+    if (!I2C_Master_WriteReg(I2C1, MPU6050_ADDR, MPU6050_ACCEL_CONFIG, 0x00)) {
+        return false;
+    }
+
+    return true;
+}
+
+// Read X, Y and Z accelerometer measurements (six consecutive bytes)
+bool MPU6050_ReadAccel(int16_t *ax, int16_t *ay, int16_t *az) {
+    uint8_t accel_buf[6];
+
+    if (!I2C_Master_ReadRegs(I2C1, MPU6050_ADDR, MPU6050_ACCEL_XOUT_H, accel_buf, 6)) {
+        return false;
+    }
+
+    *ax = (int16_t)(((uint16_t)accel_buf[0] << 8) | accel_buf[1]);
+    *ay = (int16_t)(((uint16_t)accel_buf[2] << 8) | accel_buf[3]);
+    *az = (int16_t)(((uint16_t)accel_buf[4] << 8) | accel_buf[5]);
+
+    return true;
+}

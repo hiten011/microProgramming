@@ -18,8 +18,13 @@
 
 #include <stdint.h>
 
+void init() {
+    return;
+}
+
 int main(void)
 {
+    init();
     /* Loop forever */
 	for(;;);
 }

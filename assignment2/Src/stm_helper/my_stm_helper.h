@@ -3,6 +3,11 @@
 #include "stm32c0xx.h"
 #include <stdbool.h>
 
+#define MPU6050_ADDR          0x68   // Default 7-bit I2C address (AD0 not tied to VCC)
+#define MPU6050_PWR_MGMT_1    0x6B   // Power management 1 (clear SLEEP to wake the sensor)
+#define MPU6050_ACCEL_CONFIG  0x1C   // Accelerometer range select (AFS_SEL)
+#define MPU6050_ACCEL_XOUT_H  0x3B   // First of the six accelerometer data registers
+
 typedef enum { GPIOA_BUS, GPIOB_BUS, GPIOC_BUS, TIM16_BUS, TIM17_BUS, TIM3_BUS, I2C1_BUS } PeripheralBus_t;
 typedef enum { INPUT=0b00, OUTPUT=0b01, ALT=0b10, ANALOG=0b11 } GPIOMode_t;
 typedef enum { PIN_LOW = 0, PIN_HIGH = 1 } PinState;
@@ -45,5 +50,12 @@ void I2C_Master_Init(I2C_TypeDef *i2c, uint8_t presc, uint8_t sclh, uint8_t scll
 bool check_timeout(uint16_t start_tick, uint16_t timeout_ms);
 bool I2C_Master_ReadRegs(I2C_TypeDef *i2c, uint8_t dev_addr, uint8_t reg_addr, uint8_t *rx_buf, uint16_t size);
 bool I2C_Master_WriteReg(I2C_TypeDef *i2c, uint8_t dev_addr, uint8_t reg_addr, uint8_t data);
+
+// Wake the MPU6050 and select the +/- 2g range. Returns false if an I2C transfer fails.
+bool MPU6050_Init(void);
+ 
+// Read raw X, Y, Z accelerometer values (signed 16-bit counts, 16384 LSB/g at +/- 2g).
+// Returns false if the I2C transfer fails.
+bool MPU6050_ReadAccel(int16_t *ax, int16_t *ay, int16_t *az);
 
 #endif
