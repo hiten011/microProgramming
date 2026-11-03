@@ -9,7 +9,7 @@ void Clock_Enable(PeripheralBus_t peripheral) {
     case TIM16_BUS: RCC->APBENR2 |= 1<<17; break;
     case TIM17_BUS: RCC->APBENR2 |= 1<<18; break;
     case TIM3_BUS:  RCC->APBENR1 |= 1<<1;  break;
-    case I2C1_BUS:
+    case I2C1_BUS:  RCC->APBENR1 |= 1<<21;  break;
       break;
   }
 }
@@ -78,6 +78,18 @@ void PWM_Init(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mod
   }
 
   switch (channel) {
+    case TIM_CHANNEL_1:
+      // Set mode
+      timer->CCMR1 &= ~(0b11 << 0);
+      timer->CCMR1 |=  (CC2S << 0);
+
+      // set further 
+      timer->CCMR1 &= ~(0b111 << 4);
+      timer->CCMR1 |=  (OC2M << 4);
+
+      timer->CCMR1 |= (1 << 3); // enable preload
+      timer->CCER  |= (1 << 0);  // enable output
+      break;
     case TIM_CHANNEL_2:
       // Set mode
       timer->CCMR1 &= ~(0b11 << 8);

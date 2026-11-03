@@ -355,6 +355,7 @@ Discarded input sections
  .text          0x00000000        0x0 CMakeFiles/assignment2.dir/Src/main.c.obj
  .data          0x00000000        0x0 CMakeFiles/assignment2.dir/Src/main.c.obj
  .bss           0x00000000        0x0 CMakeFiles/assignment2.dir/Src/main.c.obj
+ .text.init     0x00000000        0x2 CMakeFiles/assignment2.dir/Src/main.c.obj
  .text          0x00000000       0x14 CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj
  .data          0x00000000        0x0 CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj
  .bss           0x00000000        0x0 CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj

@@ -53,7 +53,6 @@ bool I2C_Master_WriteReg(I2C_TypeDef *i2c, uint8_t dev_addr, uint8_t reg_addr, u
 
 // Wake the MPU6050 and select the +/- 2g range. Returns false if an I2C transfer fails.
 bool MPU6050_Init(void);
- 
 // Read raw X, Y, Z accelerometer values (signed 16-bit counts, 16384 LSB/g at +/- 2g).
 // Returns false if the I2C transfer fails.
 bool MPU6050_ReadAccel(int16_t *ax, int16_t *ay, int16_t *az);
