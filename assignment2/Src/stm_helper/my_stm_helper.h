@@ -30,6 +30,7 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
 
 // PWM
 void PWM_Init(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, bool enable_counter);
+void PWM_set_Pulse(TimerChannel_t channel, uint16_t duty_us);
 
 // EXTI
 void EXTI_Init(GPIO_TypeDef *port, uint8_t pin, ExtiTrigger trigger, IRQn_Type irq_type);

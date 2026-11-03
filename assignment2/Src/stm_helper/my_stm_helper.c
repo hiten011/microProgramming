@@ -69,6 +69,7 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
   }
 }
 
+// PWM
 void PWM_Init(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mode, bool enable_counter) {
   uint32_t OC2M, CC2S;
 
@@ -124,6 +125,15 @@ void PWM_Init(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mod
     timer->CR1 |= (1 << 0);
   }
 
+}
+
+void PWM_set_Pulse(TimerChannel_t channel, int duty_us) {
+  switch(ch) {
+    case TIM_CHANNEL_1: TIM3->CCR1 = duty_us; break;
+    case TIM_CHANNEL_2: TIM3->CCR2 = duty_us; break;
+    case TIM_CHANNEL_3: TIM3->CCR3 = duty_us; break;
+    case TIM_CHANNEL_4: TIM3->CCR4 = duty_us; break;
+  }
 }
 
 
