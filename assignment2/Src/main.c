@@ -16,9 +16,11 @@
  ******************************************************************************
  */
 
+#include "stm_helper/my_stm_helper.h"
 #include <stdint.h>
 
 void init() {
+    MPU6050_Init();
     return;
 }
 
