@@ -1,3 +1,8 @@
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:6:7:calc_roll	8	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:10:7:calc_pitch	16	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:14:7:calc_tilt	16	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:7:6:set_manual_led	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:15:6:set_auto_led	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:23:6:set_roll	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:27:6:set_pitch	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:31:6:set_tilt	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:35:7:calc_roll	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:39:7:calc_pitch	16	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c:43:7:calc_tilt	16	static

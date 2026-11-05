@@ -32,7 +32,7 @@ enum MODE {
 };
 
 enum MODE curMode = MANUAL;
-enum AXIS_STATE pitch, tilt, roll = FREE; 
+enum AXIS_STATE pitch = FREE, tilt = FREE, roll = FREE;
 
 // TIM3 update interrupt: acknowledge the event so execution can resume.
 // Sensor polling and FSM processing still need to be added to the control loop.
@@ -40,6 +40,23 @@ void TIM3_IRQHandler(void) {
     if ((TIM3->SR & TIM_SR_UIF) != 0U) {
         // Timer status flags clear on writing 0; leave other flags unchanged.
         TIM3->SR = ~TIM_SR_UIF;
+    }
+}
+
+// Button (PA12) interrupt: toggle between AUTO and MANUAL modes.
+void EXTI4_15_IRQHandler(void) {
+    if (EXTI->RPR1 & (1 << 12)) {
+        EXTI->RPR1 = (1 << 12);  // clear the pending rising-edge flag
+
+        if (curMode == MANUAL) {
+            curMode = AUTO;
+            set_manual_led(false);
+            set_auto_led(true);
+        } else {
+            curMode = MANUAL;
+            set_auto_led(false);
+            set_manual_led(true);
+        }
     }
 }
 
@@ -51,8 +68,9 @@ void init() {
     Clock_Enable(TIM16_BUS); 
     Clock_Enable(I2C1_BUS);
 
-    // 2. Button: PA12 input, pull-down
+    // 2. Button: PA12 input, pull-down + rising-edge EXTI (fires on press)
     GPIO_InitPin(GPIOA, 12, INPUT, PULL_DOWN);
+    EXTI_Init(GPIOA, 12, TRIG_RISING, EXTI4_15_IRQn);
 
     // 3. LEDs: PA2 = Autopilot, PB11 = Manual. Start in MANUAL.
     GPIO_InitPin(GPIOA, 2, OUTPUT, NONE);

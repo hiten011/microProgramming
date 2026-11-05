@@ -13,3 +13,6 @@
 1	115	1793836722898604928	CMakeFiles/assignment2.dir/Src/syscall.c.obj	f06728b25afe340a
 3	180	1793836722901450860	CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj	c7f29ef09af561bb
 180	217	1793836723077606657	assignment2.elf	856671b7a8fa14ed
+4	104	1793838122345222481	CMakeFiles/assignment2.dir/Src/main.c.obj	d9fba5bb9eafa9c9
+5	110	1793838122346222488	CMakeFiles/assignment2.dir/Src/helper/helper.c.obj	a233ce898fe5c1e5
+110	150	1793838122451223300	assignment2.elf	856671b7a8fa14ed
