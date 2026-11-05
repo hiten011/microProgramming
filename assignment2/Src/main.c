@@ -16,28 +16,8 @@
  ******************************************************************************
  */
 
-#ifndef HOST_TEST
 #include "stm_helper/my_stm_helper.h"
 #include "helper/helper.h"
-#else
-#include <stdbool.h>
-#include <stdint.h>
-typedef struct {
-    float roll;
-    float pitch;
-    float tilt;
-} Angles;
-#ifndef GPIOA
-#define GPIOA ((void *)0)
-#endif
-void set_manual_led(bool on);
-void set_auto_led(bool on);
-void set_roll(uint16_t pulse_us);
-void set_pitch(uint16_t pulse_us);
-void set_tilt(uint16_t pulse_us);
-uint16_t servo_deg_to_us(float deg);
-bool GPIO_InputReadPin(void *port, uint8_t pin);
-#endif
 
 #include <stdint.h>
 #include <math.h>
@@ -188,7 +168,6 @@ void fsm_mode(void) {
     }
 }
 
-#ifndef HOST_TEST
 // TIM3 update interrupt: acknowledge the event so execution can resume.
 // Reads fresh MPU6050 data at the start of every 20 ms tick.
 void TIM3_IRQHandler(void) {
@@ -260,4 +239,3 @@ int main(void)
 {
     init();
 }
-#endif /* HOST_TEST */

@@ -1,15 +1,10 @@
 # ninja log v7
 1	11	1793845274202674584	CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj	d76fca442d1d8713
-14	167	1793847516555107819	CMakeFiles/assignment2.dir/Src/main.c.obj	d9fba5bb9eafa9c9
+6	107	1793857787893236596	CMakeFiles/assignment2.dir/Src/main.c.obj	d9fba5bb9eafa9c9
 1	29	1793845274202369946	CMakeFiles/assignment2.dir/Src/sysmem.c.obj	b70458855faf0997
 1	55	1793845274201046342	CMakeFiles/assignment2.dir/Src/syscall.c.obj	f06728b25afe340a
-167	205	1793847516708109601	assignment2.elf	a437af6896f3932c
-1	42	1793852637359799217	build.ninja	d186afdba3e5c29c
-1	42	1793852637359185388	/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/cmake_install.cmake	d186afdba3e5c29c
-2	34	1793845274203016937	CMakeFiles/assignment2.dir/Src/helper/helper.c.obj	a233ce898fe5c1e5
-1	112	1793845274202834922	CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj	c7f29ef09af561bb
-3	115	1793852774587634515	CMakeFiles/assignment2.dir/Src/main.c.obj	d9fba5bb9eafa9c9
-116	146	1793852774700635625	assignment2.elf	a437af6896f3932c
+122	152	1793857788009237742	assignment2.elf	a437af6896f3932c
+1	42	1793916527313156674	build.ninja	d186afdba3e5c29c
+1	42	1793916527310577991	/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/cmake_install.cmake	d186afdba3e5c29c
 5	92	1793853199077895947	CMakeFiles/assignment2.dir/Src/helper/helper.c.obj	a233ce898fe5c1e5
-4	100	1793853199076895937	CMakeFiles/assignment2.dir/Src/main.c.obj	d9fba5bb9eafa9c9
-100	133	1793853199172896916	assignment2.elf	a437af6896f3932c
+7	121	1793857787894236606	CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj	c7f29ef09af561bb

@@ -520,7 +520,7 @@ LOAD /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 0x08000000                g_pfnVectors
                 0x080000b4                        . = ALIGN (0x4)
 
-.text           0x080000b4     0x2150
+.text           0x080000b4     0x2164
                 0x080000b4                        . = ALIGN (0x4)
  *(.text)
  .text          0x080000b4       0x48 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
@@ -679,141 +679,141 @@ LOAD /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 0x08001b4c       0x24 CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj
                 0x08001b4c                MPU6050_Init
  .text.MPU6050_ReadAccel
-                0x08001b70       0x3c CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj
+                0x08001b70       0x50 CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj
                 0x08001b70                MPU6050_ReadAccel
  .text.set_manual_led
-                0x08001bac       0x1c CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001bac                set_manual_led
+                0x08001bc0       0x1c CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001bc0                set_manual_led
  .text.set_auto_led
-                0x08001bc8       0x1c CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001bc8                set_auto_led
+                0x08001bdc       0x1c CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001bdc                set_auto_led
  .text.servo_deg_to_us
-                0x08001be4       0x48 CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001be4                servo_deg_to_us
+                0x08001bf8       0x48 CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001bf8                servo_deg_to_us
  .text.set_roll
-                0x08001c2c        0xc CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001c2c                set_roll
+                0x08001c40        0xc CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001c40                set_roll
  .text.set_pitch
-                0x08001c38        0xc CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001c38                set_pitch
+                0x08001c4c        0xc CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001c4c                set_pitch
  .text.set_tilt
-                0x08001c44        0xc CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001c44                set_tilt
+                0x08001c58        0xc CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001c58                set_tilt
  .text.calc_roll
-                0x08001c50       0x14 CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001c50                calc_roll
+                0x08001c64       0x14 CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001c64                calc_roll
  .text.calc_pitch
-                0x08001c64       0x3c CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001c64                calc_pitch
+                0x08001c78       0x3c CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001c78                calc_pitch
  .text.calc_tilt
-                0x08001ca0       0x22 CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001ca0                calc_tilt
+                0x08001cb4       0x22 CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001cb4                calc_tilt
  .text.readAngles
-                0x08001cc2       0x5e CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
-                0x08001cc2                readAngles
- .text.atan2f   0x08001d20        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-wf_atan2.o)
-                0x08001d20                atan2f
- .text.sqrtf    0x08001d28       0x3c /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-wf_sqrt.o)
-                0x08001d28                sqrtf
+                0x08001cd6       0x5e CMakeFiles/assignment2.dir/Src/helper/helper.c.obj
+                0x08001cd6                readAngles
+ .text.atan2f   0x08001d34        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-wf_atan2.o)
+                0x08001d34                atan2f
+ .text.sqrtf    0x08001d3c       0x3c /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-wf_sqrt.o)
+                0x08001d3c                sqrtf
  .text.__ieee754_sqrtf
-                0x08001d64       0xec /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_sqrt.o)
-                0x08001d64                __ieee754_sqrtf
- .text.roundf   0x08001e50       0x48 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_round.o)
-                0x08001e50                roundf
+                0x08001d78       0xec /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_sqrt.o)
+                0x08001d78                __ieee754_sqrtf
+ .text.roundf   0x08001e64       0x48 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_round.o)
+                0x08001e64                roundf
  .text.__ieee754_atan2f
-                0x08001e98      0x110 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_atan2.o)
-                0x08001e98                __ieee754_atan2f
- .text.atanf    0x08001fa8      0x23c /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_atan.o)
-                0x08001fa8                atanf
- .text.fabsf    0x080021e4        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_fabs.o)
-                0x080021e4                fabsf
+                0x08001eac      0x110 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_atan2.o)
+                0x08001eac                __ieee754_atan2f
+ .text.atanf    0x08001fbc      0x23c /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_atan.o)
+                0x08001fbc                atanf
+ .text.fabsf    0x080021f8        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_fabs.o)
+                0x080021f8                fabsf
  *(.glue_7)
- .glue_7        0x080021ec        0x0 linker stubs
+ .glue_7        0x08002200        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080021ec        0x0 linker stubs
+ .glue_7t       0x08002200        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x080021ec        0x0 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+ .eh_frame      0x08002200        0x0 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
  *(.init)
- .init          0x080021ec        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
-                0x080021ec                _init
- .init          0x080021f0        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
+ .init          0x08002200        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
+                0x08002200                _init
+ .init          0x08002204        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
  *(.fini)
- .fini          0x080021f8        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
-                0x080021f8                _fini
- .fini          0x080021fc        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
-                0x08002204                        . = ALIGN (0x4)
-                0x08002204                        _etext = .
+ .fini          0x0800220c        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
+                0x0800220c                _fini
+ .fini          0x08002210        0x8 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
+                0x08002218                        . = ALIGN (0x4)
+                0x08002218                        _etext = .
 
-.vfp11_veneer   0x08002204        0x0
- .vfp11_veneer  0x08002204        0x0 linker stubs
+.vfp11_veneer   0x08002218        0x0
+ .vfp11_veneer  0x08002218        0x0 linker stubs
 
-.v4_bx          0x08002204        0x0
- .v4_bx         0x08002204        0x0 linker stubs
+.v4_bx          0x08002218        0x0
+ .v4_bx         0x08002218        0x0 linker stubs
 
-.iplt           0x08002204        0x0
- .iplt          0x08002204        0x0 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+.iplt           0x08002218        0x0
+ .iplt          0x08002218        0x0 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.rodata         0x08002204       0xbc
-                0x08002204                        . = ALIGN (0x4)
+.rodata         0x08002218       0xbc
+                0x08002218                        . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x08002204       0x7c /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/libgcc.a(divsf3.o)
+ .rodata        0x08002218       0x7c /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/libgcc.a(divsf3.o)
  *(.rodata*)
- .rodata.tiny   0x08002280        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_sqrt.o)
- .rodata.one    0x08002284        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_sqrt.o)
+ .rodata.tiny   0x08002294        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_sqrt.o)
+ .rodata.one    0x08002298        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_sqrt.o)
  .rodata.CSWTCH.9
-                0x08002288        0xc /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_atan2.o)
+                0x0800229c        0xc /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_atan2.o)
  .rodata.CSWTCH.8
-                0x08002294        0xc /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_atan2.o)
+                0x080022a8        0xc /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-ef_atan2.o)
  .rodata.atanlo
-                0x080022a0       0x10 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_atan.o)
+                0x080022b4       0x10 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_atan.o)
  .rodata.atanhi
-                0x080022b0       0x10 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_atan.o)
-                0x080022c0                        . = ALIGN (0x4)
+                0x080022c4       0x10 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a(libm_a-sf_atan.o)
+                0x080022d4                        . = ALIGN (0x4)
 
-.ARM.extab      0x080022c0        0x0
-                0x080022c0                        . = ALIGN (0x4)
+.ARM.extab      0x080022d4        0x0
+                0x080022d4                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080022c0                        . = ALIGN (0x4)
+                0x080022d4                        . = ALIGN (0x4)
 
-.ARM            0x080022c0        0x0
-                0x080022c0                        . = ALIGN (0x4)
-                0x080022c0                        __exidx_start = .
+.ARM            0x080022d4        0x0
+                0x080022d4                        . = ALIGN (0x4)
+                0x080022d4                        __exidx_start = .
  *(.ARM.exidx*)
-                0x080022c0                        __exidx_end = .
-                0x080022c0                        . = ALIGN (0x4)
+                0x080022d4                        __exidx_end = .
+                0x080022d4                        . = ALIGN (0x4)
 
-.preinit_array  0x080022c0        0x0
-                0x080022c0                        . = ALIGN (0x4)
-                0x080022c0                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x080022d4        0x0
+                0x080022d4                        . = ALIGN (0x4)
+                0x080022d4                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x080022c0                        PROVIDE (__preinit_array_end = .)
-                0x080022c0                        . = ALIGN (0x4)
+                0x080022d4                        PROVIDE (__preinit_array_end = .)
+                0x080022d4                        . = ALIGN (0x4)
 
-.init_array     0x080022c0        0x8
-                0x080022c0                        . = ALIGN (0x4)
-                0x080022c0                        PROVIDE (__init_array_start = .)
+.init_array     0x080022d4        0x8
+                0x080022d4                        . = ALIGN (0x4)
+                0x080022d4                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  .init_array.00000
-                0x080022c0        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
+                0x080022d4        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x080022c4        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
-                0x080022c8                        PROVIDE (__init_array_end = .)
-                0x080022c8                        . = ALIGN (0x4)
+ .init_array    0x080022d8        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x080022dc                        PROVIDE (__init_array_end = .)
+                0x080022dc                        . = ALIGN (0x4)
 
-.fini_array     0x080022c8        0x4
-                0x080022c8                        . = ALIGN (0x4)
-                0x080022c8                        PROVIDE (__fini_array_start = .)
+.fini_array     0x080022dc        0x4
+                0x080022dc                        . = ALIGN (0x4)
+                0x080022dc                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x080022c8        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
-                0x080022cc                        PROVIDE (__fini_array_end = .)
-                0x080022cc                        . = ALIGN (0x4)
-                0x080022cc                        _sidata = LOADADDR (.data)
+ .fini_array    0x080022dc        0x4 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x080022e0                        PROVIDE (__fini_array_end = .)
+                0x080022e0                        . = ALIGN (0x4)
+                0x080022e0                        _sidata = LOADADDR (.data)
 
-.rel.dyn        0x080022cc        0x0
- .rel.iplt      0x080022cc        0x0 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+.rel.dyn        0x080022e0        0x0
+ .rel.iplt      0x080022e0        0x0 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.data           0x20000000      0x130 load address 0x080022cc
+.data           0x20000000      0x130 load address 0x080022e0
                 0x20000000                        _sdata = .
  *(.data)
  *(.data*)
@@ -834,10 +834,10 @@ LOAD /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 0x20000130                        . = ALIGN (0x4)
  *fill*         0x2000012d        0x3 
 
-.igot.plt       0x20000130        0x0 load address 0x080023fc
+.igot.plt       0x20000130        0x0 load address 0x08002410
  .igot.plt      0x20000130        0x0 /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.tdata          0x20000130        0x0 load address 0x080023fc
+.tdata          0x20000130        0x0 load address 0x08002410
  *(.tdata .tdata.* .gnu.linkonce.td.*)
                 0x20000130                        . = ALIGN (0x4)
                 0x20000130                        _edata = .
@@ -854,7 +854,7 @@ LOAD /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 [!provide]                        PROVIDE (__data_source_end = __tdata_source_end)
                 [!provide]                        PROVIDE (__data_source_size = (__data_source_end - __data_source))
 
-.tbss           0x20000130        0x0 load address 0x080023fc
+.tbss           0x20000130        0x0 load address 0x08002410
                 0x20000130                        _sbss = .
                 0x20000130                        __bss_start__ = _sbss
                 [!provide]                        PROVIDE (__bss_start = .)
@@ -872,7 +872,7 @@ LOAD /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 [!provide]                        PROVIDE (__arm32_tls_tcb_offset = MAX (0x8, __tls_align))
                 [!provide]                        PROVIDE (__arm64_tls_tcb_offset = MAX (0x10, __tls_align))
 
-.bss            0x20000130      0x2fc load address 0x080023fc
+.bss            0x20000130      0x2fc load address 0x08002410
  *(.bss)
  .bss           0x20000130       0x1c /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
  *(.bss*)
@@ -906,7 +906,7 @@ LOAD /home/hiten/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/
                 [!provide]                        PROVIDE (__non_tls_bss_start = ADDR (.bss))
 
 ._user_heap_stack
-                0x2000042c      0x604 load address 0x080023fc
+                0x2000042c      0x604 load address 0x08002410
                 0x20000430                        . = ALIGN (0x8)
  *fill*         0x2000042c        0x4 
                 [!provide]                        PROVIDE (end = .)
