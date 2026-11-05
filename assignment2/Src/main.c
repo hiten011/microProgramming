@@ -16,9 +16,7 @@
  ******************************************************************************
  */
 
-#ifndef HOST_TEST
 #include "stm_helper/my_stm_helper.h"
-#endif
 #include "helper/helper.h"
 #include <stdint.h>
 #include <math.h>
@@ -109,14 +107,17 @@ void fsm_tilt(void) {
     }
 }
 
-#ifndef HOST_TEST
-
 // TIM3 update interrupt: acknowledge the event so execution can resume.
 // Reads fresh MPU6050 data at the start of every 20 ms tick.
 void TIM3_IRQHandler(void) {
     if ((TIM3->SR & TIM_SR_UIF) != 0U) {
         // Read accelerometer and compute roll/pitch/tilt into the global struct.
         readAngles(&angles);
+
+        // Update FSM states
+        fsm_pitch();
+        fsm_roll();
+        fsm_tilt();
 
         // Timer status flags clear on writing 0; leave other flags unchanged.
         TIM3->SR = ~TIM_SR_UIF;
@@ -194,4 +195,3 @@ int main(void)
 {
     init();
 }
-#endif
