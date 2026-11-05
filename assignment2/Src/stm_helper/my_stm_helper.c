@@ -324,9 +324,13 @@ bool MPU6050_Init(void) {
 bool MPU6050_ReadAccel(int16_t *ax, int16_t *ay, int16_t *az) {
     uint8_t accel_buf[6];
 
-    if (!I2C_Master_ReadRegs(I2C1, MPU6050_ADDR, MPU6050_ACCEL_XOUT_H, accel_buf, 6)) {
-        return false;
-    }
+      I2C1->ICR = (1U << 4) | (1U << 5) | (1U << 8) | (1U << 9);
+      I2C1->CR1 &= ~(1U << 0);
+      I2C1->CR1 |= (1U << 0);
+      if (!I2C_Master_ReadRegs(I2C1, MPU6050_ADDR, MPU6050_ACCEL_XOUT_H, accel_buf, 6)) {
+          return false;
+      }
+    
 
     *ax = (int16_t)(((uint16_t)accel_buf[0] << 8) | accel_buf[1]);
     *ay = (int16_t)(((uint16_t)accel_buf[2] << 8) | accel_buf[3]);
