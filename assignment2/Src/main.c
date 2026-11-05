@@ -16,9 +16,12 @@
  ******************************************************************************
  */
 
+#ifndef HOST_TEST
 #include "stm_helper/my_stm_helper.h"
+#endif
 #include "helper/helper.h"
 #include <stdint.h>
+#include <math.h>
 
 // Computed orientation angles from the MPU6050 (degrees).
 // Updated every 20 ms by the TIM3 interrupt.
@@ -37,6 +40,31 @@ enum MODE {
 
 enum MODE curMode = MANUAL;
 enum AXIS_STATE pitch = FREE, tilt = FREE, roll = FREE;
+
+void fsm_pitch(void) {
+    float mag = fabsf(angles.pitch);
+    switch (pitch) {
+        case FREE:
+            if (mag >= 30.0f) {
+                pitch = COMPLIANT;
+            }
+            break;
+        case COMPLIANT:
+            if (mag < 25.0f) {
+                pitch = FREE;
+            } else if (mag > 50.0f) {
+                pitch = CLAMPED;
+            }
+            break;
+        case CLAMPED:
+            if (mag <= 45.0f) {
+                pitch = COMPLIANT;
+            }
+            break;
+    }
+}
+
+#ifndef HOST_TEST
 
 // TIM3 update interrupt: acknowledge the event so execution can resume.
 // Reads fresh MPU6050 data at the start of every 20 ms tick.
@@ -121,3 +149,4 @@ int main(void)
 {
     init();
 }
+#endif
