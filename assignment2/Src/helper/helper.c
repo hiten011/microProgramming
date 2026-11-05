@@ -1,7 +1,36 @@
 #include "helper.h"
+#include "../stm_helper/my_stm_helper.h"
 #include <math.h>
 
 #define RAD_TO_DEG 57.2957795f   // 180 / pi, converts radians to degrees
+
+void set_manual_led(bool on) {
+    if (on) {
+        GPIO_OutputSetPin(GPIOB, 11);
+    } else {
+        GPIO_OutputClearPin(GPIOB, 11);
+    }
+}
+
+void set_auto_led(bool on) {
+    if (on) {
+        GPIO_OutputSetPin(GPIOA, 2);
+    } else {
+        GPIO_OutputClearPin(GPIOA, 2);
+    }
+}
+
+void set_roll(uint16_t pulse_us) {
+    PWM_set_Pulse(TIM_CHANNEL_1, pulse_us);
+}
+
+void set_pitch(uint16_t pulse_us) {
+    PWM_set_Pulse(TIM_CHANNEL_2, pulse_us);
+}
+
+void set_tilt(uint16_t pulse_us) {
+    PWM_set_Pulse(TIM_CHANNEL_3, pulse_us);
+}
 
 float calc_roll(float ay, float az) {
     return atan2f(ay, az) * RAD_TO_DEG;

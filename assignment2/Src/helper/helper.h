@@ -1,6 +1,17 @@
 #ifndef HELPER_H
 #define HELPER_H
 
+#include <stdbool.h>
+#include <stdint.h>
+
+// LEDs: true = on, false = off
+void set_manual_led(bool on);
+void set_auto_led(bool on);
+
+// Servo pulse widths in microseconds
+void set_roll(uint16_t pulse_us);
+void set_pitch(uint16_t pulse_us);
+void set_tilt(uint16_t pulse_us);
 
 float calc_roll(float ay, float az);                    // phi   = atan2(ay, az)
 float calc_pitch(float ax, float ay, float az);         // theta = atan2(-ax, sqrt(ay^2 + az^2))

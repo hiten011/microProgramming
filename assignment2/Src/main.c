@@ -17,6 +17,7 @@
  */
 
 #include "stm_helper/my_stm_helper.h"
+#include "helper/helper.h"
 #include <stdint.h>
 
 enum AXIS_STATE {
@@ -56,8 +57,8 @@ void init() {
     // 3. LEDs: PA2 = Autopilot, PB11 = Manual. Start in MANUAL.
     GPIO_InitPin(GPIOA, 2, OUTPUT, NONE);
     GPIO_InitPin(GPIOB, 11, OUTPUT, NONE);
-    GPIO_OutputClearPin(GPIOA, 2);    // autopilot LED off
-    GPIO_OutputSetPin(GPIOB, 11);     // manual LED on
+    set_auto_led(false);             // autopilot LED off
+    set_manual_led(true);            // manual LED on
 
     // 4. Servo pins -> TIM3 (AF1): PB4 = CH1 roll, PB5 = CH2 pitch, PB0 = CH3 tilt
     GPIO_InitPin(GPIOB, 4, ALT, NONE);  GPIO_ConnectPeripheral(GPIOB, 4, 1);
@@ -83,9 +84,9 @@ void init() {
     PWM_Init(TIM3, TIM_CHANNEL_3, TIM_MODE_OUTPUT_PWM1, false);
 
     // 9. Starting servo positions (the FREE state of each FSM)
-    PWM_set_Pulse(TIM_CHANNEL_1, 1500);   // roll  = 90 deg
-    PWM_set_Pulse(TIM_CHANNEL_2, 1500);   // pitch = 90 deg
-    PWM_set_Pulse(TIM_CHANNEL_3, 500);    // tilt  = 0 deg
+    set_roll(1500);    // roll  = 90 deg
+    set_pitch(1500);   // pitch = 90 deg
+    set_tilt(500);     // tilt  = 0 deg
 
     // 10. TIM3 last: 50 Hz PWM, and its update interrupt is the 20 ms loop tick
     Timer_Init(TIM3, TIM3_IRQn, 47, 19999, true, true, true, true);
@@ -94,6 +95,4 @@ void init() {
 int main(void)
 {
     init();
-    /* Loop forever */
-	for(;;);
 }
