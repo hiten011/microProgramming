@@ -4,12 +4,12 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-// MPU6050 raw accelerometer readings (signed 16-bit counts, 16384 LSB/g at ±2g)
+// Computed orientation angles from the MPU6050 accelerometer (all in degrees).
 typedef struct {
-    int16_t ax;
-    int16_t ay;
-    int16_t az;
-} MPU_Data;
+    float roll;   // phi   = atan2(ay, az)
+    float pitch;  // theta = atan2(-ax, sqrt(ay^2 + az^2))
+    float tilt;   // alpha = sqrt(pitch^2 + roll^2)  — combined tilt magnitude
+} Angles;
 
 // LEDs: true = on, false = off
 void set_manual_led(bool on);
@@ -20,9 +20,7 @@ void set_roll(uint16_t pulse_us);
 void set_pitch(uint16_t pulse_us);
 void set_tilt(uint16_t pulse_us);
 
-// Read raw accelerometer values from MPU6050 and store them in *data.
-// Returns false if the I2C transfer fails (data is left unchanged on failure).
-bool read_mpu_data(MPU_Data *data);
+bool readAngles(Angles *out);
 
 float calc_roll(float ay, float az);                    // phi   = atan2(ay, az)
 float calc_pitch(float ax, float ay, float az);         // theta = atan2(-ax, sqrt(ay^2 + az^2))

@@ -20,11 +20,9 @@
 #include "helper/helper.h"
 #include <stdint.h>
 
-// MPU6050 accelerometer readings (raw 16-bit counts, 16384 LSB/g at ±2g)
-// MPU_Data is defined in helper/helper.h — no redefinition needed here.
-
-// Global instance updated every 20 ms by the TIM3 interrupt.
-MPU_Data mpu_data = {0, 0, 0};
+// Computed orientation angles from the MPU6050 (degrees).
+// Updated every 20 ms by the TIM3 interrupt.
+Angles angles = {0.0f, 0.0f, 0.0f};
 
 enum AXIS_STATE {
     FREE, 
@@ -44,8 +42,8 @@ enum AXIS_STATE pitch = FREE, tilt = FREE, roll = FREE;
 // Reads fresh MPU6050 data at the start of every 20 ms tick.
 void TIM3_IRQHandler(void) {
     if ((TIM3->SR & TIM_SR_UIF) != 0U) {
-        // Read accelerometer values into the global struct first.
-        read_mpu_data(&mpu_data);
+        // Read accelerometer and compute roll/pitch/tilt into the global struct.
+        readAngles(&angles);
 
         // Timer status flags clear on writing 0; leave other flags unchanged.
         TIM3->SR = ~TIM_SR_UIF;

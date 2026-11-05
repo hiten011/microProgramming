@@ -32,8 +32,16 @@ void set_tilt(uint16_t pulse_us) {
     PWM_set_Pulse(TIM_CHANNEL_3, pulse_us);
 }
 
-bool read_mpu_data(MPU_Data *data) {
-    return MPU6050_ReadAccel(&data->ax, &data->ay, &data->az);
+bool readAngles(Angles *out) {
+    int16_t ax, ay, az;
+    if (!MPU6050_ReadAccel(&ax, &ay, &az)) {
+        return false;
+    }
+    
+    out->roll  = calc_roll((float)ay, (float)az);
+    out->pitch = calc_pitch((float)ax, (float)ay, (float)az);
+    out->tilt  = calc_tilt(out->roll, out->pitch);
+    return true;
 }
 
 float calc_roll(float ay, float az) {
