@@ -35,21 +35,12 @@ void set_auto_led(bool on);
 void set_roll(uint16_t pulse_us);
 void set_pitch(uint16_t pulse_us);
 void set_tilt(uint16_t pulse_us);
+uint16_t servo_deg_to_us(float deg);
 bool GPIO_InputReadPin(void *port, uint8_t pin);
 #endif
 
 #include <stdint.h>
 #include <math.h>
-
-// Helper to convert servo target angle (0 to 180 deg) to PWM pulse in microseconds (500 to 2500 us)
-uint16_t servo_deg_to_us(float deg) {
-    if (deg < 0.0f) {
-        deg = 0.0f;
-    } else if (deg > 180.0f) {
-        deg = 180.0f;
-    }
-    return (uint16_t)roundf(500.0f + deg * (2000.0f / 180.0f));
-}
 
 // Computed orientation angles from the MPU6050 (degrees).
 // Updated every 20 ms by the TIM3 interrupt.

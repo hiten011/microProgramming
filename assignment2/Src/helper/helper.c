@@ -20,6 +20,16 @@ void set_auto_led(bool on) {
     }
 }
 
+// Helper to convert servo target angle (0 to 180 deg) to PWM pulse in microseconds (500 to 2500 us)
+uint16_t servo_deg_to_us(float deg) {
+    if (deg < 0.0f) {
+        deg = 0.0f;
+    } else if (deg > 180.0f) {
+        deg = 180.0f;
+    }
+    return (uint16_t)roundf(500.0f + deg * (2000.0f / 180.0f));
+}
+
 void set_roll(uint16_t pulse_us) {
     PWM_set_Pulse(TIM_CHANNEL_1, pulse_us);
 }

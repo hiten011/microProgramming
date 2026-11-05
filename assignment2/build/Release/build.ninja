@@ -121,6 +121,7 @@ build assignment2.elf: C_EXECUTABLE_LINKER__assignment2_Release CMakeFiles/assig
   CONFIG = Release
   FLAGS = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment
   LINK_FLAGS = -mcpu=cortex-m0plus -mlittle-endian -mthumb -T/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/stm32c031x6_flash.ld -Wl,-Map=/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/assignment2.map -u _printf_float --specs=nosys.specs -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group -Wl,-z,max-page-size=8 -Wl,--print-memory-usage
+  LINK_LIBRARIES = -lm
   OBJECT_DIR = CMakeFiles/assignment2.dir
   POST_BUILD = :
   PRE_LINK = :

@@ -15,6 +15,9 @@ typedef struct {
 void set_manual_led(bool on);
 void set_auto_led(bool on);
 
+// Convert servo angle (0..180 deg, clamped) to pulse width in microseconds (500..2500)
+uint16_t servo_deg_to_us(float deg);
+
 // Servo pulse widths in microseconds
 void set_roll(uint16_t pulse_us);
 void set_pitch(uint16_t pulse_us);
