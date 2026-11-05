@@ -4,3 +4,12 @@
 1	67	1793583479412513392	CMakeFiles/assignment2.dir/Src/sysmem.c.obj	cc072655b5686192
 1	79	1793583479410986991	CMakeFiles/assignment2.dir/Src/syscall.c.obj	3ab98dd8fc11b447
 77	113	1793664812697926898	assignment2.elf	a43410a199861f4d
+2	50	1793836722885903682	build.ninja	d186afdba3e5c29c
+2	50	1793836722885903682	/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/cmake_install.cmake	d186afdba3e5c29c
+3	29	1793836722900604948	CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj	d76fca442d1d8713
+1	77	1793836722899846800	CMakeFiles/assignment2.dir/Src/sysmem.c.obj	b70458855faf0997
+3	82	1793836722901803036	CMakeFiles/assignment2.dir/Src/helper/helper.c.obj	a233ce898fe5c1e5
+2	94	1793836722900404658	CMakeFiles/assignment2.dir/Src/main.c.obj	d9fba5bb9eafa9c9
+1	115	1793836722898604928	CMakeFiles/assignment2.dir/Src/syscall.c.obj	f06728b25afe340a
+3	180	1793836722901450860	CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj	c7f29ef09af561bb
+180	217	1793836723077606657	assignment2.elf	856671b7a8fa14ed

@@ -19,9 +19,76 @@
 #include "stm_helper/my_stm_helper.h"
 #include <stdint.h>
 
+enum AXIS_STATE {
+    FREE, 
+    COMPLIANT,
+    CLAMPED
+};
+
+enum MODE {
+    AUTO, 
+    MANUAL
+};
+
+enum MODE curMode = MANUAL;
+enum AXIS_STATE pitch, tilt, roll = FREE; 
+
+// TIM3 update interrupt: acknowledge the event so execution can resume.
+// Sensor polling and FSM processing still need to be added to the control loop.
+void TIM3_IRQHandler(void) {
+    if ((TIM3->SR & TIM_SR_UIF) != 0U) {
+        // Timer status flags clear on writing 0; leave other flags unchanged.
+        TIM3->SR = ~TIM_SR_UIF;
+    }
+}
+
 void init() {
-    MPU6050_Init();
-    return;
+    // 1. Clocks Enable
+    Clock_Enable(GPIOA_BUS);
+    Clock_Enable(GPIOB_BUS);
+    Clock_Enable(TIM3_BUS);
+    Clock_Enable(TIM16_BUS); 
+    Clock_Enable(I2C1_BUS);
+
+    // 2. Button: PA12 input, pull-down
+    GPIO_InitPin(GPIOA, 12, INPUT, PULL_DOWN);
+
+    // 3. LEDs: PA2 = Autopilot, PB11 = Manual. Start in MANUAL.
+    GPIO_InitPin(GPIOA, 2, OUTPUT, NONE);
+    GPIO_InitPin(GPIOB, 11, OUTPUT, NONE);
+    GPIO_OutputClearPin(GPIOA, 2);    // autopilot LED off
+    GPIO_OutputSetPin(GPIOB, 11);     // manual LED on
+
+    // 4. Servo pins -> TIM3 (AF1): PB4 = CH1 roll, PB5 = CH2 pitch, PB0 = CH3 tilt
+    GPIO_InitPin(GPIOB, 4, ALT, NONE);  GPIO_ConnectPeripheral(GPIOB, 4, 1);
+    GPIO_InitPin(GPIOB, 5, ALT, NONE);  GPIO_ConnectPeripheral(GPIOB, 5, 1);
+    GPIO_InitPin(GPIOB, 0, ALT, NONE);  GPIO_ConnectPeripheral(GPIOB, 0, 1);
+
+    // 5. I2C pins: PB8 = SCL, PB9 = SDA (AF6)
+    GPIO_InitPin(GPIOB, 8, ALT, PULL_UP);  GPIO_ConnectPeripheral(GPIOB, 8, 6);
+    GPIO_InitPin(GPIOB, 9, ALT, PULL_UP);  GPIO_ConnectPeripheral(GPIOB, 9, 6);
+    GPIOB->OTYPER |= (1 << 8) | (1 << 9);  // I2C pins must be open-drain
+
+    // 6. TIM16: free-running 1 ms counter used by check_timeout()
+    //    Must be running BEFORE any I2C call.
+    Timer_Init(TIM16, TIM16_IRQn, 47999, 0xFFFF, false, false, true, true);
+
+    // 7. I2C1 at 100 kHz, then wake the MPU6050
+    I2C_Master_Init(I2C1, 11, 19, 19);
+    MPU6050_Init();   // returns false if the sensor doesn't answer
+
+    // 8. Servo PWM channels on TIM3 (counter not started yet)
+    PWM_Init(TIM3, TIM_CHANNEL_1, TIM_MODE_OUTPUT_PWM1, false);
+    PWM_Init(TIM3, TIM_CHANNEL_2, TIM_MODE_OUTPUT_PWM1, false);
+    PWM_Init(TIM3, TIM_CHANNEL_3, TIM_MODE_OUTPUT_PWM1, false);
+
+    // 9. Starting servo positions (the FREE state of each FSM)
+    PWM_set_Pulse(TIM_CHANNEL_1, 1500);   // roll  = 90 deg
+    PWM_set_Pulse(TIM_CHANNEL_2, 1500);   // pitch = 90 deg
+    PWM_set_Pulse(TIM_CHANNEL_3, 500);    // tilt  = 0 deg
+
+    // 10. TIM3 last: 50 Hz PWM, and its update interrupt is the 20 ms loop tick
+    Timer_Init(TIM3, TIM3_IRQn, 47, 19999, true, true, true, true);
 }
 
 int main(void)

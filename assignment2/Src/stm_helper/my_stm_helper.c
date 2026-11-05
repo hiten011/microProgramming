@@ -57,6 +57,8 @@ void Timer_Init(TIM_TypeDef *timer, IRQn_Type irq_type, uint16_t psc, uint16_t a
 
   if (force_update) {
     timer->EGR |= (1 << 0); // UG: force PSC/ARR to load now instead of on next overflow
+    // UG also sets UIF. Clear it before enabling update interrupts.
+    timer->SR = ~TIM_SR_UIF;
   }
 
   if (enable_interrupt) {
@@ -127,8 +129,8 @@ void PWM_Init(TIM_TypeDef *timer, TimerChannel_t channel, TimerChannelMode_t mod
 
 }
 
-void PWM_set_Pulse(TimerChannel_t channel, int duty_us) {
-  switch(ch) {
+void PWM_set_Pulse(TimerChannel_t channel, uint16_t duty_us) {
+  switch(channel) {
     case TIM_CHANNEL_1: TIM3->CCR1 = duty_us; break;
     case TIM_CHANNEL_2: TIM3->CCR2 = duty_us; break;
     case TIM_CHANNEL_3: TIM3->CCR3 = duty_us; break;

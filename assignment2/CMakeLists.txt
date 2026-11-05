@@ -31,11 +31,15 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/files.cmake)
 # Add sources to executable/library
 target_sources(${PROJECT_NAME} PRIVATE
   # User defined sources
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/stm_helper/my_stm_helper.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/helper/helper.c"
 )
 
 # Add include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
   # User defined include directories
+  "${CMAKE_CURRENT_SOURCE_DIR}/Inc/drivers/cmsis_device_c0/Include"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Inc/drivers/CMSIS/Core/Include"
 )
 
 # Compiler options
@@ -46,6 +50,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 # Add additional defined symbols
 target_compile_definitions(${PROJECT_NAME} PRIVATE
   # Add additional defined symbols here
+  STM32C031xx
 )
 
 # Linker options

@@ -51,42 +51,62 @@ build cmake_object_order_depends_target_assignment2: phony || .
 
 build CMakeFiles/assignment2.dir/Src/syscall.c.obj: C_COMPILER__assignment2_unscanned_Release /home/hiten/dev/UNI/microPrograming/assignment2/Src/syscall.c || cmake_object_order_depends_target_assignment2
   CONFIG = Release
-  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX
+  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX -DSTM32C031xx
   DEP_FILE = CMakeFiles/assignment2.dir/Src/syscall.c.obj.d
   FLAGS = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os
-  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc
+  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/cmsis_device_c0/Include -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/CMSIS/Core/Include
   OBJECT_DIR = CMakeFiles/assignment2.dir
   OBJECT_FILE_DIR = CMakeFiles/assignment2.dir/Src
   TARGET_SUPPORT_DIR = CMakeFiles/assignment2.dir
 
 build CMakeFiles/assignment2.dir/Src/sysmem.c.obj: C_COMPILER__assignment2_unscanned_Release /home/hiten/dev/UNI/microPrograming/assignment2/Src/sysmem.c || cmake_object_order_depends_target_assignment2
   CONFIG = Release
-  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX
+  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX -DSTM32C031xx
   DEP_FILE = CMakeFiles/assignment2.dir/Src/sysmem.c.obj.d
   FLAGS = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os
-  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc
+  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/cmsis_device_c0/Include -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/CMSIS/Core/Include
   OBJECT_DIR = CMakeFiles/assignment2.dir
   OBJECT_FILE_DIR = CMakeFiles/assignment2.dir/Src
   TARGET_SUPPORT_DIR = CMakeFiles/assignment2.dir
 
 build CMakeFiles/assignment2.dir/Src/main.c.obj: C_COMPILER__assignment2_unscanned_Release /home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c || cmake_object_order_depends_target_assignment2
   CONFIG = Release
-  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX
+  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX -DSTM32C031xx
   DEP_FILE = CMakeFiles/assignment2.dir/Src/main.c.obj.d
   FLAGS = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os
-  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc
+  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/cmsis_device_c0/Include -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/CMSIS/Core/Include
   OBJECT_DIR = CMakeFiles/assignment2.dir
   OBJECT_FILE_DIR = CMakeFiles/assignment2.dir/Src
   TARGET_SUPPORT_DIR = CMakeFiles/assignment2.dir
 
 build CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj: ASM_COMPILER__assignment2_unscanned_Release /home/hiten/dev/UNI/microPrograming/assignment2/Src/startup_stm32c031xx.S || cmake_object_order_depends_target_assignment2
   CONFIG = Release
-  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX
+  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX -DSTM32C031xx
   DEP_FILE = CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj.d
   FLAGS = -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os -x assembler-with-cpp -MMD -MP
-  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc
+  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/cmsis_device_c0/Include -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/CMSIS/Core/Include
   OBJECT_DIR = CMakeFiles/assignment2.dir
   OBJECT_FILE_DIR = CMakeFiles/assignment2.dir/Src
+  TARGET_SUPPORT_DIR = CMakeFiles/assignment2.dir
+
+build CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj: C_COMPILER__assignment2_unscanned_Release /home/hiten/dev/UNI/microPrograming/assignment2/Src/stm_helper/my_stm_helper.c || cmake_object_order_depends_target_assignment2
+  CONFIG = Release
+  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX -DSTM32C031xx
+  DEP_FILE = CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj.d
+  FLAGS = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os
+  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/cmsis_device_c0/Include -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/CMSIS/Core/Include
+  OBJECT_DIR = CMakeFiles/assignment2.dir
+  OBJECT_FILE_DIR = CMakeFiles/assignment2.dir/Src/stm_helper
+  TARGET_SUPPORT_DIR = CMakeFiles/assignment2.dir
+
+build CMakeFiles/assignment2.dir/Src/helper/helper.c.obj: C_COMPILER__assignment2_unscanned_Release /home/hiten/dev/UNI/microPrograming/assignment2/Src/helper/helper.c || cmake_object_order_depends_target_assignment2
+  CONFIG = Release
+  DEFINES = -DRTE_DEVICE_STARTUP_STM32C0XX -DSTM32C031xx
+  DEP_FILE = CMakeFiles/assignment2.dir/Src/helper/helper.c.obj.d
+  FLAGS = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment -mcpu=cortex-m0plus -mlittle-endian -mthumb -std=gnu11 -fstack-usage -Wall -Wextra -Wpedantic -Wno-unused-parameter -Os
+  INCLUDES = -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/cmsis_device_c0/Include -I/home/hiten/dev/UNI/microPrograming/assignment2/Inc/drivers/CMSIS/Core/Include
+  OBJECT_DIR = CMakeFiles/assignment2.dir
+  OBJECT_FILE_DIR = CMakeFiles/assignment2.dir/Src/helper
   TARGET_SUPPORT_DIR = CMakeFiles/assignment2.dir
 
 
@@ -97,7 +117,7 @@ build CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj: ASM_COMPILER__as
 #############################################
 # Link the executable assignment2.elf
 
-build assignment2.elf: C_EXECUTABLE_LINKER__assignment2_Release CMakeFiles/assignment2.dir/Src/syscall.c.obj CMakeFiles/assignment2.dir/Src/sysmem.c.obj CMakeFiles/assignment2.dir/Src/main.c.obj CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj | stm32c031x6_flash.ld
+build assignment2.elf: C_EXECUTABLE_LINKER__assignment2_Release CMakeFiles/assignment2.dir/Src/syscall.c.obj CMakeFiles/assignment2.dir/Src/sysmem.c.obj CMakeFiles/assignment2.dir/Src/main.c.obj CMakeFiles/assignment2.dir/Src/startup_stm32c031xx.S.obj CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj CMakeFiles/assignment2.dir/Src/helper/helper.c.obj | stm32c031x6_flash.ld
   CONFIG = Release
   FLAGS = -fdata-sections -ffunction-sections -Wl,--gc-sections -Wno-comment
   LINK_FLAGS = -mcpu=cortex-m0plus -mlittle-endian -mthumb -T/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/stm32c031x6_flash.ld -Wl,-Map=/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/assignment2.map -u _printf_float --specs=nosys.specs -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group -Wl,-z,max-page-size=8 -Wl,--print-memory-usage
