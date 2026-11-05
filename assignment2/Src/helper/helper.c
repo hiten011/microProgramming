@@ -32,6 +32,10 @@ void set_tilt(uint16_t pulse_us) {
     PWM_set_Pulse(TIM_CHANNEL_3, pulse_us);
 }
 
+bool read_mpu_data(MPU_Data *data) {
+    return MPU6050_ReadAccel(&data->ax, &data->ay, &data->az);
+}
+
 float calc_roll(float ay, float az) {
     return atan2f(ay, az) * RAD_TO_DEG;
 }
