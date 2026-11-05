@@ -87,6 +87,28 @@ void fsm_roll(void) {
     }
 }
 
+void fsm_tilt(void) {
+    switch (tilt) {
+        case FREE:
+            if (angles.tilt > 20.0f) {
+                tilt = COMPLIANT;
+            }
+            break;
+        case COMPLIANT:
+            if (angles.tilt < 15.0f) {
+                tilt = FREE;
+            } else if (angles.tilt >= 70.0f) {
+                tilt = CLAMPED;
+            }
+            break;
+        case CLAMPED:
+            if (angles.tilt <= 65.0f) {
+                tilt = COMPLIANT;
+            }
+            break;
+    }
+}
+
 #ifndef HOST_TEST
 
 // TIM3 update interrupt: acknowledge the event so execution can resume.

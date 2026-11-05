@@ -156,9 +156,65 @@ void test_roll_fsm(void) {
     printf("fsm_roll tests passed!\n");
 }
 
+void test_tilt_fsm(void) {
+    printf("Testing fsm_tilt...\n");
+
+    // Initial state FREE
+    tilt = FREE;
+    angles.tilt = 0.0f;
+    fsm_tilt();
+    assert(tilt == FREE);
+
+    // At 20.0 deg: remains FREE (transition requires > 20 deg)
+    angles.tilt = 20.0f;
+    fsm_tilt();
+    assert(tilt == FREE);
+
+    // Above 20.0 deg: transitions to COMPLIANT
+    angles.tilt = 20.1f;
+    fsm_tilt();
+    assert(tilt == COMPLIANT);
+
+    // In COMPLIANT: deadband between 15.0 and 20.0 keeps COMPLIANT
+    angles.tilt = 18.0f;
+    fsm_tilt();
+    assert(tilt == COMPLIANT);
+
+    // Below 15 deg: transitions back to FREE
+    angles.tilt = 14.9f;
+    fsm_tilt();
+    assert(tilt == FREE);
+
+    // Transition COMPLIANT -> CLAMPED (>= 70 deg)
+    angles.tilt = 25.0f;
+    fsm_tilt();
+    assert(tilt == COMPLIANT);
+
+    angles.tilt = 69.9f;
+    fsm_tilt();
+    assert(tilt == COMPLIANT);
+
+    angles.tilt = 70.0f; // boundary: >= 70 triggers clamped
+    fsm_tilt();
+    assert(tilt == CLAMPED);
+
+    // In CLAMPED: deadband between 65.0 and 70.0 keeps CLAMPED
+    angles.tilt = 68.0f;
+    fsm_tilt();
+    assert(tilt == CLAMPED);
+
+    // At or below 65.0 deg: transitions back to COMPLIANT
+    angles.tilt = 65.0f;
+    fsm_tilt();
+    assert(tilt == COMPLIANT);
+
+    printf("fsm_tilt tests passed!\n");
+}
+
 int main(void) {
     test_pitch_fsm();
     test_roll_fsm();
+    test_tilt_fsm();
     printf("All current tests passed!\n");
     return 0;
 }
