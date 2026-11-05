@@ -64,6 +64,29 @@ void fsm_pitch(void) {
     }
 }
 
+void fsm_roll(void) {
+    float mag = fabsf(angles.roll);
+    switch (roll) {
+        case FREE:
+            if (mag >= 30.0f) {
+                roll = COMPLIANT;
+            }
+            break;
+        case COMPLIANT:
+            if (mag < 25.0f) {
+                roll = FREE;
+            } else if (mag > 50.0f) {
+                roll = CLAMPED;
+            }
+            break;
+        case CLAMPED:
+            if (mag <= 45.0f) {
+                roll = COMPLIANT;
+            }
+            break;
+    }
+}
+
 #ifndef HOST_TEST
 
 // TIM3 update interrupt: acknowledge the event so execution can resume.
