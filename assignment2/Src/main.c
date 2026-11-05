@@ -18,8 +18,26 @@
 
 #ifndef HOST_TEST
 #include "stm_helper/my_stm_helper.h"
-#endif
 #include "helper/helper.h"
+#else
+#include <stdbool.h>
+#include <stdint.h>
+typedef struct {
+    float roll;
+    float pitch;
+    float tilt;
+} Angles;
+#ifndef GPIOA
+#define GPIOA ((void *)0)
+#endif
+void set_manual_led(bool on);
+void set_auto_led(bool on);
+void set_roll(uint16_t pulse_us);
+void set_pitch(uint16_t pulse_us);
+void set_tilt(uint16_t pulse_us);
+bool GPIO_InputReadPin(void *port, uint8_t pin);
+#endif
+
 #include <stdint.h>
 #include <math.h>
 
@@ -149,8 +167,37 @@ void fsm_tilt(void) {
     }
 }
 
-#ifndef HOST_TEST
+void fsm_mode(void) {
+    static bool prev_btn = false;
+    bool now = GPIO_InputReadPin(GPIOA, 12);
+    bool rising = (!prev_btn && now);
+    prev_btn = now;
 
+    switch (curMode) {
+        case MANUAL:
+            if ((roll == CLAMPED && pitch == CLAMPED) || rising) {
+                curMode = AUTO;
+                set_auto_led(true);
+                set_manual_led(false);
+            } else {
+                set_manual_led(true);
+                set_auto_led(false);
+            }
+            break;
+        case AUTO:
+            if (rising && (roll == FREE && pitch == FREE)) {
+                curMode = MANUAL;
+                set_manual_led(true);
+                set_auto_led(false);
+            } else {
+                set_auto_led(true);
+                set_manual_led(false);
+            }
+            break;
+    }
+}
+
+#ifndef HOST_TEST
 // TIM3 update interrupt: acknowledge the event so execution can resume.
 // Reads fresh MPU6050 data at the start of every 20 ms tick.
 void TIM3_IRQHandler(void) {
@@ -239,5 +286,4 @@ int main(void)
 {
     init();
 }
-
-#endif
+#endif /* HOST_TEST */
