@@ -8,3 +8,5 @@
 1	42	1793916527310577991	/home/hiten/dev/UNI/microPrograming/assignment2/build/Release/cmake_install.cmake	d186afdba3e5c29c
 5	92	1793853199077895947	CMakeFiles/assignment2.dir/Src/helper/helper.c.obj	a233ce898fe5c1e5
 7	121	1793857787894236606	CMakeFiles/assignment2.dir/Src/stm_helper/my_stm_helper.c.obj	c7f29ef09af561bb
+8	243	1793917232585116735	CMakeFiles/assignment2.dir/Src/main.c.obj	d9fba5bb9eafa9c9
+243	313	1793917232820118948	assignment2.elf	a437af6896f3932c

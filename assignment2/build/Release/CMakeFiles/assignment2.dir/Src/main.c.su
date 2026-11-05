@@ -1,7 +1,7 @@
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:63:6:fsm_pitch	16	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:96:6:fsm_roll	16	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:129:6:fsm_tilt	16	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:161:6:fsm_mode	8	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:194:6:TIM3_IRQHandler	8	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:210:6:init	32	static
-/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:259:5:main	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:43:6:fsm_pitch	16	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:76:6:fsm_roll	16	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:109:6:fsm_tilt	16	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:141:6:fsm_mode	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:173:6:TIM3_IRQHandler	8	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:189:6:init	32	static
+/home/hiten/dev/UNI/microPrograming/assignment2/Src/main.c:238:5:main	8	static
