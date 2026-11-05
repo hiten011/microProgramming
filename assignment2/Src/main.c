@@ -209,26 +209,10 @@ void TIM3_IRQHandler(void) {
         fsm_pitch();
         fsm_roll();
         fsm_tilt();
+        fsm_mode();
 
         // Timer status flags clear on writing 0; leave other flags unchanged.
         TIM3->SR = ~TIM_SR_UIF;
-    }
-}
-
-// Button (PA12) interrupt: toggle between AUTO and MANUAL modes.
-void EXTI4_15_IRQHandler(void) {
-    if (EXTI->RPR1 & (1 << 12)) {
-        EXTI->RPR1 = (1 << 12);  // clear the pending rising-edge flag
-
-        if (curMode == MANUAL) {
-            curMode = AUTO;
-            set_manual_led(false);
-            set_auto_led(true);
-        } else {
-            curMode = MANUAL;
-            set_auto_led(false);
-            set_manual_led(true);
-        }
     }
 }
 
@@ -240,9 +224,8 @@ void init() {
     Clock_Enable(TIM16_BUS); 
     Clock_Enable(I2C1_BUS);
 
-    // 2. Button: PA12 input, pull-down + rising-edge EXTI (fires on press)
+    // 2. Button: PA12 input, pull-down (polled each TIM3 tick in fsm_mode)
     GPIO_InitPin(GPIOA, 12, INPUT, PULL_DOWN);
-    EXTI_Init(GPIOA, 12, TRIG_RISING, EXTI4_15_IRQn);
 
     // 3. LEDs: PA2 = Autopilot, PB11 = Manual. Start in MANUAL.
     GPIO_InitPin(GPIOA, 2, OUTPUT, NONE);
