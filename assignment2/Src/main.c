@@ -16,10 +16,22 @@
  ******************************************************************************
  */
 
+#ifndef HOST_TEST
 #include "stm_helper/my_stm_helper.h"
+#endif
 #include "helper/helper.h"
 #include <stdint.h>
 #include <math.h>
+
+// Helper to convert servo target angle (0 to 180 deg) to PWM pulse in microseconds (500 to 2500 us)
+uint16_t servo_deg_to_us(float deg) {
+    if (deg < 0.0f) {
+        deg = 0.0f;
+    } else if (deg > 180.0f) {
+        deg = 180.0f;
+    }
+    return (uint16_t)roundf(500.0f + deg * (2000.0f / 180.0f));
+}
 
 // Computed orientation angles from the MPU6050 (degrees).
 // Updated every 20 ms by the TIM3 interrupt.
@@ -45,18 +57,28 @@ void fsm_pitch(void) {
         case FREE:
             if (mag >= 30.0f) {
                 pitch = COMPLIANT;
+                set_pitch(servo_deg_to_us(90.0f + angles.pitch));
+            } else {
+                set_pitch(1500);
             }
             break;
         case COMPLIANT:
             if (mag < 25.0f) {
                 pitch = FREE;
+                set_pitch(1500);
             } else if (mag > 50.0f) {
                 pitch = CLAMPED;
+                set_pitch(angles.pitch >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
+            } else {
+                set_pitch(servo_deg_to_us(90.0f + angles.pitch));
             }
             break;
         case CLAMPED:
             if (mag <= 45.0f) {
                 pitch = COMPLIANT;
+                set_pitch(servo_deg_to_us(90.0f + angles.pitch));
+            } else {
+                set_pitch(angles.pitch >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
             }
             break;
     }
@@ -68,18 +90,28 @@ void fsm_roll(void) {
         case FREE:
             if (mag >= 30.0f) {
                 roll = COMPLIANT;
+                set_roll(servo_deg_to_us(90.0f + angles.roll));
+            } else {
+                set_roll(1500);
             }
             break;
         case COMPLIANT:
             if (mag < 25.0f) {
                 roll = FREE;
+                set_roll(1500);
             } else if (mag > 50.0f) {
                 roll = CLAMPED;
+                set_roll(angles.roll >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
+            } else {
+                set_roll(servo_deg_to_us(90.0f + angles.roll));
             }
             break;
         case CLAMPED:
             if (mag <= 45.0f) {
                 roll = COMPLIANT;
+                set_roll(servo_deg_to_us(90.0f + angles.roll));
+            } else {
+                set_roll(angles.roll >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
             }
             break;
     }
@@ -90,22 +122,34 @@ void fsm_tilt(void) {
         case FREE:
             if (angles.tilt > 20.0f) {
                 tilt = COMPLIANT;
+                set_tilt(servo_deg_to_us(2.0f * angles.tilt));
+            } else {
+                set_tilt(500);
             }
             break;
         case COMPLIANT:
             if (angles.tilt < 15.0f) {
                 tilt = FREE;
+                set_tilt(500);
             } else if (angles.tilt >= 70.0f) {
                 tilt = CLAMPED;
+                set_tilt(servo_deg_to_us(140.0f));
+            } else {
+                set_tilt(servo_deg_to_us(2.0f * angles.tilt));
             }
             break;
         case CLAMPED:
             if (angles.tilt <= 65.0f) {
                 tilt = COMPLIANT;
+                set_tilt(servo_deg_to_us(2.0f * angles.tilt));
+            } else {
+                set_tilt(servo_deg_to_us(140.0f));
             }
             break;
     }
 }
+
+#ifndef HOST_TEST
 
 // TIM3 update interrupt: acknowledge the event so execution can resume.
 // Reads fresh MPU6050 data at the start of every 20 ms tick.
@@ -195,3 +239,5 @@ int main(void)
 {
     init();
 }
+
+#endif
