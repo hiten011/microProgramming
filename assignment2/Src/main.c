@@ -26,47 +26,50 @@
 // Updated every 20 ms by the TIM3 interrupt.
 Angles angles = {0.0f, 0.0f, 0.0f};
 
+// Per-axis servo behaviour.
 enum AXIS_STATE {
-    FREE, 
-    COMPLIANT,
-    CLAMPED
+    FREE,       // near level: hold the servo at its rest pulse
+    COMPLIANT,  // mid range: servo follows the measured angle
+    CLAMPED     // past the stop: servo held at its limit
 };
 
+// MANUAL runs the axis FSMs; AUTO latches once roll and pitch are both clamped.
 enum MODE {
-    AUTO, 
+    AUTO,
     MANUAL
 };
 
 enum MODE curMode = MANUAL;
-enum AXIS_STATE pitch = FREE, tilt = FREE, roll = FREE;
+enum AXIS_STATE pitch = FREE, tilt = FREE, roll = FREE;  // every axis starts at rest
 
 void fsm_pitch(void) {
-    float mag = fabsf(angles.pitch);
+    float mag = fabsf(angles.pitch);  // thresholds use magnitude; sign picks which stop
     switch (pitch) {
         case FREE:
-            if (mag >= 30.0f) {
+            if (mag >= 30.0f) {  // leave rest once |pitch| reaches 30 deg
                 pitch = COMPLIANT;
-                set_pitch(servo_deg_to_us(90.0f + angles.pitch));
+                set_pitch(servo_deg_to_us(90.0f + angles.pitch));  // 90 deg is servo centre
             } else {
-                set_pitch(1500);
+                set_pitch(1500);  // hold the 90 deg pulse
             }
             break;
         case COMPLIANT:
-            if (mag < 25.0f) {
+            if (mag < 25.0f) {  // 5 deg hysteresis before returning to FREE
                 pitch = FREE;
                 set_pitch(1500);
-            } else if (mag > 50.0f) {
+            } else if (mag > 50.0f) {  // hard stop once |pitch| passes 50 deg
                 pitch = CLAMPED;
                 set_pitch(angles.pitch >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
             } else {
-                set_pitch(servo_deg_to_us(90.0f + angles.pitch));
+                set_pitch(servo_deg_to_us(90.0f + angles.pitch));  // track pitch around centre
             }
             break;
         case CLAMPED:
-            if (mag <= 45.0f) {
+            if (mag <= 45.0f) {  // release 5 deg before the clamp threshold
                 pitch = COMPLIANT;
                 set_pitch(servo_deg_to_us(90.0f + angles.pitch));
             } else {
+                // Positive pitch stops at 140 deg, negative at 40 deg.
                 set_pitch(angles.pitch >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
             }
             break;
@@ -74,32 +77,33 @@ void fsm_pitch(void) {
 }
 
 void fsm_roll(void) {
-    float mag = fabsf(angles.roll);
+    float mag = fabsf(angles.roll);  // same 30/25/50/45 hysteresis as pitch
     switch (roll) {
         case FREE:
-            if (mag >= 30.0f) {
+            if (mag >= 30.0f) {  // leave rest once |roll| reaches 30 deg
                 roll = COMPLIANT;
-                set_roll(servo_deg_to_us(90.0f + angles.roll));
+                set_roll(servo_deg_to_us(90.0f + angles.roll));  // 90 deg is servo centre
             } else {
-                set_roll(1500);
+                set_roll(1500);  // hold the 90 deg pulse
             }
             break;
         case COMPLIANT:
-            if (mag < 25.0f) {
+            if (mag < 25.0f) {  // 5 deg hysteresis before returning to FREE
                 roll = FREE;
                 set_roll(1500);
-            } else if (mag > 50.0f) {
+            } else if (mag > 50.0f) {  // hard stop once |roll| passes 50 deg
                 roll = CLAMPED;
                 set_roll(angles.roll >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
             } else {
-                set_roll(servo_deg_to_us(90.0f + angles.roll));
+                set_roll(servo_deg_to_us(90.0f + angles.roll));  // track roll around centre
             }
             break;
         case CLAMPED:
-            if (mag <= 45.0f) {
+            if (mag <= 45.0f) {  // release 5 deg before the clamp threshold
                 roll = COMPLIANT;
                 set_roll(servo_deg_to_us(90.0f + angles.roll));
             } else {
+                // Positive roll stops at 140 deg, negative at 40 deg.
                 set_roll(angles.roll >= 0.0f ? servo_deg_to_us(140.0f) : servo_deg_to_us(40.0f));
             }
             break;
@@ -107,20 +111,21 @@ void fsm_roll(void) {
 }
 
 void fsm_tilt(void) {
+    // Tilt is a magnitude, so this axis only moves one way from 0 deg.
     switch (tilt) {
         case FREE:
-            if (angles.tilt > 20.0f) {
+            if (angles.tilt > 20.0f) {  // leave rest once combined tilt passes 20 deg
                 tilt = COMPLIANT;
-                set_tilt(servo_deg_to_us(2.0f * angles.tilt));
+                set_tilt(servo_deg_to_us(2.0f * angles.tilt));  // servo moves twice the tilt
             } else {
-                set_tilt(500);
+                set_tilt(500);  // 0 deg rest pulse
             }
             break;
         case COMPLIANT:
-            if (angles.tilt < 15.0f) {
+            if (angles.tilt < 15.0f) {  // 5 deg hysteresis before returning to FREE
                 tilt = FREE;
                 set_tilt(500);
-            } else if (angles.tilt >= 70.0f) {
+            } else if (angles.tilt >= 70.0f) {  // hard stop at 140 deg once tilt hits 70
                 tilt = CLAMPED;
                 set_tilt(servo_deg_to_us(140.0f));
             } else {
@@ -128,24 +133,25 @@ void fsm_tilt(void) {
             }
             break;
         case CLAMPED:
-            if (angles.tilt <= 65.0f) {
+            if (angles.tilt <= 65.0f) {  // release 5 deg before the clamp threshold
                 tilt = COMPLIANT;
                 set_tilt(servo_deg_to_us(2.0f * angles.tilt));
             } else {
-                set_tilt(servo_deg_to_us(140.0f));
+                set_tilt(servo_deg_to_us(140.0f));  // stay on the stop
             }
             break;
     }
 }
 
 void fsm_mode(void) {
-    static bool prev_btn = false;
-    bool now = GPIO_InputReadPin(GPIOA, 12);
-    bool rising = (!prev_btn && now);
+    static bool prev_btn = false;                 // last sample, so we only see the press edge
+    bool now = GPIO_InputReadPin(GPIOA, 12);      // PA12 mode button, active high
+    bool rising = (!prev_btn && now);             // true for one tick when the button is pressed
     prev_btn = now;
 
     switch (curMode) {
         case MANUAL:
+            // Enter AUTO if both roll and pitch are clamped, or the button is pressed.
             if ((roll == CLAMPED && pitch == CLAMPED) || rising) {
                 curMode = AUTO;
                 set_auto_led(true);
@@ -156,6 +162,7 @@ void fsm_mode(void) {
             }
             break;
         case AUTO:
+            // Button returns to MANUAL only when roll and pitch are both free.
             if (rising && (roll == FREE && pitch == FREE)) {
                 curMode = MANUAL;
                 set_manual_led(true);
@@ -237,5 +244,5 @@ void init() {
 
 int main(void)
 {
-    init();
+    init();  // returns immediately; TIM3 IRQ runs the control loop every 20 ms
 }
